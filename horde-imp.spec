@@ -1,5 +1,5 @@
 %define		_RC	RC2
-%define		_rel	0.5
+%define		_rel	0.6
 Summary:	Web Based IMAP Mail Program
 Summary(pl):	Program do obs³ugi poczty przez www korzystaj±cy z IMAP'a
 Summary(es):	Programa de correo vía Internet basado en IMAP
@@ -59,19 +59,19 @@ install -d $RPM_BUILD_ROOT%{contentdir}/html/horde/imp/{config,graphics,lib,loca
 install %{SOURCE1} $RPM_BUILD_ROOT%{apachedir}
 cp -pR	*.php			$RPM_BUILD_ROOT%{contentdir}/html/horde/imp
 cp -pR	config/*.dist		$RPM_BUILD_ROOT%{contentdir}/html/horde/imp/config
-cp -pR	graphics/*.gif		$RPM_BUILD_ROOT%{contentdir}/html/horde/imp/graphics
-cp -pR	lib/*.php		$RPM_BUILD_ROOT%{contentdir}/html/horde/imp/lib
+cp -pR	graphics/*		$RPM_BUILD_ROOT%{contentdir}/html/horde/imp/graphics
+cp -pR	lib/*			$RPM_BUILD_ROOT%{contentdir}/html/horde/imp/lib
 cp -pR	locale/*		$RPM_BUILD_ROOT%{contentdir}/html/horde/imp/locale
 cp -pR	scripts/*.php		$RPM_BUILD_ROOT%{contentdir}/html/horde/imp/scripts
-cp -pR	templates/*.inc		$RPM_BUILD_ROOT%{contentdir}/html/horde/imp/templates
+cp -pR	templates/*		$RPM_BUILD_ROOT%{contentdir}/html/horde/imp/templates
 
 cp -p	config/.htaccess	$RPM_BUILD_ROOT%{contentdir}/html/horde/imp/config
-cp -p	lib/.htaccess		$RPM_BUILD_ROOT%{contentdir}/html/horde/imp/lib
 cp -p	locale/.htaccess	$RPM_BUILD_ROOT%{contentdir}/html/horde/imp/locale
 cp -p	scripts/.htaccess	$RPM_BUILD_ROOT%{contentdir}/html/horde/imp/scripts
-cp -p	templates/.htaccess	$RPM_BUILD_ROOT%{contentdir}/html/horde/imp/templates
 
 install scripts/imp-cleanup.cron $RPM_BUILD_ROOT/etc/cron.daily/imp-cleanup
+
+ln -sf	%{contentdir}/html/horde/imp/config $RPM_BUILD_ROOT%{apachedir}/imp
 
 cat <<_EOF2_ > $RPM_BUILD_DIR/%{name}-%{version}/README.install
 IMPORTANT:  If you are installing for the first time, you must now
@@ -87,7 +87,6 @@ If you are using a database, you also need to set the database password:
 # sh scripts/database/dbpasswd.sh
 
 (See %{_docdir}/%{name}-%{version}/INSTALL for more information.)
-
 _EOF2_
 
 gzip -9nf README README.install docs/* scripts/*.reg
@@ -126,6 +125,7 @@ fi
 %files
 %defattr(644,root,root,755)
 %doc *.gz docs/*.gz scripts/*.gz scripts/*.pl
+
 %dir %{contentdir}/html/horde/imp
 %attr(750,root,http) %{contentdir}/html/horde/imp/*.php
 %attr(750,root,http) %{contentdir}/html/horde/imp/graphics
@@ -133,8 +133,12 @@ fi
 %attr(750,root,http) %{contentdir}/html/horde/imp/locale
 %attr(750,root,http) %{contentdir}/html/horde/imp/scripts
 %attr(750,root,http) %{contentdir}/html/horde/imp/templates
+
 %attr(750,root,http) %dir %{contentdir}/html/horde/imp/config
 %attr(750,root,http) %{contentdir}/html/horde/imp/config/*.dist
 %attr(750,root,http) %{contentdir}/html/horde/imp/config/.htaccess
 %attr(750,root,http) %config(noreplace) %{apachedir}/imp.conf
 %attr(750,root,http) %config(noreplace) %{contentdir}/html/horde/imp/config/*.php
+%attr(750,root,http) %config(noreplace) %{contentdir}/html/horde/imp/config/*.txt
+%attr(755,root,root) %config(noreplace) /etc/cron.daily/imp-cleanup
+%{apachedir}/imp
