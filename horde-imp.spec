@@ -2,7 +2,7 @@ Summary:	Web Based IMAP Mail Program
 Summary(es):	Programa de correo vía Internet basado en IMAP
 Summary(pt_BR): Programa de Mail via Web
 Name:		imp
-Version:	2.2.3
+Version:	2.2.4
 Release:	1
 License:	GPL
 Group:		Applications/Mail
@@ -43,7 +43,7 @@ Programa de correo vía Internet basado en IMAP
 
 %prep
 %setup -q -n %{name}-%{version}
-%patch -p1
+#%patch -p1
 
 %install
 rm -rf $RPM_BUILD_ROOT
