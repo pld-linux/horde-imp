@@ -1,5 +1,5 @@
 %define		_RC	RC2
-%define		_rel	0.1
+%define		_rel	0.5
 Summary:	Web Based IMAP Mail Program
 Summary(pl):	Program do obs³ugi poczty przez www korzystaj±cy z IMAP'a
 Summary(es):	Programa de correo vía Internet basado en IMAP
@@ -7,7 +7,7 @@ Summary(pt_BR):	Programa de Mail via Web
 Name:		imp
 Version:	3.1
 Release:	%{_RC}.%{_rel}
-License:	GPL
+License:	GPL v2
 Group:		Applications/Mail
 Source0:	ftp://ftp.horde.org/pub/imp/tarballs/%{name}-%{version}-%{_RC}.tar.gz
 Source1:	%{name}.conf
@@ -53,11 +53,25 @@ Programa de correo vía Internet basado en IMAP
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{apachedir}
-install -d $RPM_BUILD_ROOT%{contentdir}/html/horde/imp
+install -d $RPM_BUILD_ROOT{%{apachedir},/etc/cron.daily}
+install -d $RPM_BUILD_ROOT%{contentdir}/html/horde/imp/{config,graphics,lib,locale,scripts,templates}
 
 install %{SOURCE1} $RPM_BUILD_ROOT%{apachedir}
-cp -pR * $RPM_BUILD_ROOT%{contentdir}/html/horde/imp
+cp -pR	*.php			$RPM_BUILD_ROOT%{contentdir}/html/horde/imp
+cp -pR	config/*.dist		$RPM_BUILD_ROOT%{contentdir}/html/horde/imp/config
+cp -pR	graphics/*.gif		$RPM_BUILD_ROOT%{contentdir}/html/horde/imp/graphics
+cp -pR	lib/*.php		$RPM_BUILD_ROOT%{contentdir}/html/horde/imp/lib
+cp -pR	locale/*		$RPM_BUILD_ROOT%{contentdir}/html/horde/imp/locale
+cp -pR	scripts/*.php		$RPM_BUILD_ROOT%{contentdir}/html/horde/imp/scripts
+cp -pR	templates/*.inc		$RPM_BUILD_ROOT%{contentdir}/html/horde/imp/templates
+
+cp -p	config/.htaccess	$RPM_BUILD_ROOT%{contentdir}/html/horde/imp/config
+cp -p	lib/.htaccess		$RPM_BUILD_ROOT%{contentdir}/html/horde/imp/lib
+cp -p	locale/.htaccess	$RPM_BUILD_ROOT%{contentdir}/html/horde/imp/locale
+cp -p	scripts/.htaccess	$RPM_BUILD_ROOT%{contentdir}/html/horde/imp/scripts
+cp -p	templates/.htaccess	$RPM_BUILD_ROOT%{contentdir}/html/horde/imp/templates
+
+install scripts/imp-cleanup.cron $RPM_BUILD_ROOT/etc/cron.daily/imp-cleanup
 
 cat <<_EOF2_ > $RPM_BUILD_DIR/%{name}-%{version}/README.install
 IMPORTANT:  If you are installing for the first time, you must now
@@ -76,7 +90,10 @@ If you are using a database, you also need to set the database password:
 
 _EOF2_
 
-gzip -9nf README README.install
+gzip -9nf README README.install docs/* scripts/*.reg
+
+cd $RPM_BUILD_ROOT%{contentdir}/html/horde/imp/config/
+for i in *.dist; do cp $i `basename $i .dist`; done
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -108,36 +125,16 @@ fi
 
 %files
 %defattr(644,root,root,755)
-
-# Apache imp.conf file
-%config %{apachedir}/imp.conf
-
-# Include top level with %dir so not all files are sucked in
+%doc *.gz docs/*.gz scripts/*.gz scripts/*.pl
 %dir %{contentdir}/html/horde/imp
-
-# Include top-level files by hand
-#%{contentdir}/html/horde/imp/*.css
-%{contentdir}/html/horde/imp/*.php
-
-# Include these dirs so that all files _will_ get sucked in
-%{contentdir}/html/horde/imp/graphics
-%{contentdir}/html/horde/imp/lib
-%{contentdir}/html/horde/imp/locale
-%{contentdir}/html/horde/imp/scripts
-%{contentdir}/html/horde/imp/templates
-
-# Mark documentation files with %doc and %docdir
-# docdir not used anymore
-%doc *.gz
-%doc docs/*
-#docdir %{contentdir}/html/horde/imp/docs
-#%{contentdir}/html/horde/imp/docs
-
-# Mark configuration files with %config and use secure permissions
-# (note that .dist files are considered software; don't mark %config)
+%attr(750,root,http) %{contentdir}/html/horde/imp/*.php
+%attr(750,root,http) %{contentdir}/html/horde/imp/graphics
+%attr(750,root,http) %{contentdir}/html/horde/imp/lib
+%attr(750,root,http) %{contentdir}/html/horde/imp/locale
+%attr(750,root,http) %{contentdir}/html/horde/imp/scripts
+%attr(750,root,http) %{contentdir}/html/horde/imp/templates
 %attr(750,root,http) %dir %{contentdir}/html/horde/imp/config
-%{contentdir}/html/horde/imp/config/*.dist
-%defattr(-,root,root)
-%config %{contentdir}/html/horde/imp/config/*.html
-%config %{contentdir}/html/horde/imp/config/*.txt
-%config %{contentdir}/html/horde/imp/config/*.dt
+%attr(750,root,http) %{contentdir}/html/horde/imp/config/*.dist
+%attr(750,root,http) %{contentdir}/html/horde/imp/config/*.htaccess
+%attr(750,root,http) %config(noreplace) %{apachedir}/imp.conf
+%attr(750,root,http) %config(noreplace) %{contentdir}/html/horde/imp/config/*.php
