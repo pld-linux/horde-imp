@@ -15,7 +15,7 @@ Source2:	%{name}-pgsql_create.sql
 Source3:	%{name}-pgsql_cuser.sh
 Source4:	%{name}-menu.txt
 Source5:	%{name}-ImpLibVersion.def
-Patch0:         %{name}-path.patch
+Patch0:		%{name}-path.patch
 URL:		http://www.horde.org/imp/
 BuildRequires:	rpm-php-pearprov >= 4.0.2-98
 PreReq:		apache
