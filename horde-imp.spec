@@ -1,5 +1,5 @@
 %define		_RC	RC2
-%define		_rel	0.6
+%define		_rel	0.7
 Summary:	Web Based IMAP Mail Program
 Summary(pl):	Program do obs³ugi poczty przez www korzystaj±cy z IMAP'a
 Summary(es):	Programa de correo vía Internet basado en IMAP
@@ -68,6 +68,7 @@ cp -pR	templates/*		$RPM_BUILD_ROOT%{contentdir}/html/horde/imp/templates
 cp -p	config/.htaccess	$RPM_BUILD_ROOT%{contentdir}/html/horde/imp/config
 cp -p	locale/.htaccess	$RPM_BUILD_ROOT%{contentdir}/html/horde/imp/locale
 cp -p	scripts/.htaccess	$RPM_BUILD_ROOT%{contentdir}/html/horde/imp/scripts
+cp -p	templates/.htaccess	$RPM_BUILD_ROOT%{contentdir}/html/horde/imp/templates
 
 install scripts/imp-cleanup.cron $RPM_BUILD_ROOT/etc/cron.daily/imp-cleanup
 
@@ -127,7 +128,7 @@ fi
 %doc *.gz docs/*.gz scripts/*.gz scripts/*.pl
 
 %dir %{contentdir}/html/horde/imp
-%attr(750,root,http) %{contentdir}/html/horde/imp/*.php
+%attr(640,root,http) %{contentdir}/html/horde/imp/*.php
 %attr(750,root,http) %{contentdir}/html/horde/imp/graphics
 %attr(750,root,http) %{contentdir}/html/horde/imp/lib
 %attr(750,root,http) %{contentdir}/html/horde/imp/locale
@@ -135,10 +136,10 @@ fi
 %attr(750,root,http) %{contentdir}/html/horde/imp/templates
 
 %attr(750,root,http) %dir %{contentdir}/html/horde/imp/config
-%attr(750,root,http) %{contentdir}/html/horde/imp/config/*.dist
-%attr(750,root,http) %{contentdir}/html/horde/imp/config/.htaccess
-%attr(750,root,http) %config(noreplace) %{apachedir}/imp.conf
-%attr(750,root,http) %config(noreplace) %{contentdir}/html/horde/imp/config/*.php
-%attr(750,root,http) %config(noreplace) %{contentdir}/html/horde/imp/config/*.txt
+%attr(640,root,http) %{contentdir}/html/horde/imp/config/*.dist
+%attr(640,root,http) %{contentdir}/html/horde/imp/config/.htaccess
+%attr(640,root,http) %config(noreplace) %{apachedir}/imp.conf
+%attr(640,root,http) %config(noreplace) %{contentdir}/html/horde/imp/config/*.php
+%attr(640,root,http) %config(noreplace) %{contentdir}/html/horde/imp/config/*.txt
 %attr(755,root,root) %config(noreplace) /etc/cron.daily/imp-cleanup
 %{apachedir}/imp
