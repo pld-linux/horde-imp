@@ -4,7 +4,7 @@ Summary(pl):	Program do obs³ugi poczty przez WWW korzystaj±cy z IMAP-a
 Summary(pt_BR):	Programa de Mail via Web
 Name:		imp
 Version:	4.0.2
-Release:	1.7
+Release:	1.8
 License:	GPL v2
 Group:		Applications/Mail
 Source0:	ftp://ftp.horde.org/pub/imp/%{name}-h3-%{version}.tar.gz
@@ -69,6 +69,7 @@ echo "<?php ?>" > 		$RPM_BUILD_ROOT%{_sysconfdir}/%{name}/conf.php
 sed -e '
 	s,/somewhere/ca-bundle.crt,/usr/share/ssl/ca-bundle.crt,
 ' < config/conf.xml > $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/conf.xml
+> $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/conf.php.bak
 
 cp -pR	lib/*			$RPM_BUILD_ROOT%{_appdir}/lib
 cp -pR	locale/*		$RPM_BUILD_ROOT%{_appdir}/locale
@@ -141,8 +142,10 @@ fi
 %doc README docs/* scripts/*.reg
 %attr(770,root,http) %dir %{_sysconfdir}/%{name}
 %attr(640,root,root) %config(noreplace) %{_sysconfdir}/apache-%{name}.conf
-%attr(660,root,http) %config(noreplace) %{_sysconfdir}/%{name}/*.php
+%attr(660,root,http) %config(noreplace) %{_sysconfdir}/%{name}/conf.php
+%attr(640,root,http) %config(noreplace) %{_sysconfdir}/%{name}/[^c]*.php
 %attr(640,root,http) %config(noreplace) %{_sysconfdir}/%{name}/*.txt
+%ghost %{_sysconfdir}/%{name}/*.php.bak
 %attr(640,root,http) %{_sysconfdir}/%{name}/*.xml
 
 %dir %{_appdir}
