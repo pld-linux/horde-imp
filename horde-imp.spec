@@ -13,7 +13,6 @@ Source2:	%{name}-pgsql_cuser.sh
 Source3:	%{name}-menu.txt
 Source4:	%{name}-ImpLibVersion.def
 Source5:	%{name}.conf
-Patch0:		%{name}-cnc.patch
 URL:		http://www.horde.org/imp/
 Requires:	horde = 1.2.6
 Requires:	horde-phplib-storage
@@ -50,7 +49,6 @@ Programa de correo vía Internet basado en IMAP
 
 %prep
 %setup -q -n %{name}-%{version}
-#%patch -p1
 
 %install
 rm -rf $RPM_BUILD_ROOT
