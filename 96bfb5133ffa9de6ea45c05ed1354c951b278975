@@ -1,0 +1,6 @@
+- security update to 3.2.5
+  Changelog:
+  SECURITY: Close an XSS hole in the HTML viewer, a variation to the one
+  reported in http://www.greymagic.com/security/advisories/gm005-mc/.
+  SECURITY: Close an XSS hole exploited via the Content-type header
+  of malicious emails.
