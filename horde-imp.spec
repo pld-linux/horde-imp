@@ -4,7 +4,7 @@ Summary(pl):	Program do obs³ugi poczty przez WWW korzystaj±cy z IMAP-a
 Summary(pt_BR):	Programa de Mail via Web
 Name:		imp
 Version:	4.0.2
-Release:	1.3
+Release:	1.4
 License:	GPL v2
 Group:		Applications/Mail
 Source0:	ftp://ftp.horde.org/pub/imp/%{name}-h3-%{version}.tar.gz
@@ -61,27 +61,22 @@ install -d $RPM_BUILD_ROOT{/etc/cron.daily,%{_sysconfdir}/imp} \
 	$RPM_BUILD_ROOT%{hordedir}/imp/{lib,locale,scripts,templates,themes}
 
 cp -pR	*.php			$RPM_BUILD_ROOT%{hordedir}/imp
-cp -pR	config/*.dist		$RPM_BUILD_ROOT%{_sysconfdir}/imp
+for i in config/*.dist; do
+	cp -p $i $RPM_BUILD_ROOT%{_sysconfdir}/imp/$(basename $i .dist)
+done
 cp -pR	config/*.xml		$RPM_BUILD_ROOT%{_sysconfdir}/imp
 echo "<?php ?>" > 		$RPM_BUILD_ROOT%{_sysconfdir}/imp/conf.php
+
 cp -pR	lib/*			$RPM_BUILD_ROOT%{hordedir}/imp/lib
 cp -pR	locale/*		$RPM_BUILD_ROOT%{hordedir}/imp/locale
 cp -pR	scripts/*.php		$RPM_BUILD_ROOT%{hordedir}/imp/scripts
 cp -pR	templates/*		$RPM_BUILD_ROOT%{hordedir}/imp/templates
 cp -pR	themes/*		$RPM_BUILD_ROOT%{hordedir}/imp/themes
 
-cp -p	config/.htaccess	$RPM_BUILD_ROOT%{_sysconfdir}/imp
-cp -p	locale/.htaccess	$RPM_BUILD_ROOT%{hordedir}/imp/locale
-cp -p	scripts/.htaccess	$RPM_BUILD_ROOT%{hordedir}/imp/scripts
-cp -p	templates/.htaccess	$RPM_BUILD_ROOT%{hordedir}/imp/templates
-
 ln -sf	%{_sysconfdir}/%{name} 	$RPM_BUILD_ROOT%{hordedir}/%{name}/config
 
 install %{SOURCE1} 		$RPM_BUILD_ROOT%{_sysconfdir}/apache-imp.conf
 install %{SOURCE6} 		$RPM_BUILD_ROOT%{hordedir}/imp/locale/pl_PL/LC_MESSAGES/imp.mo
-
-cd $RPM_BUILD_ROOT%{_sysconfdir}/imp
-for i in *.dist; do cp $i `basename $i .dist`; done
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -151,9 +146,7 @@ fi
 
 %attr(750,root,http) %dir %{_sysconfdir}/%{name}
 %{hordedir}/%{name}/config
-%attr(640,root,http) %{_sysconfdir}/%{name}/*.dist
 %attr(640,root,http) %{_sysconfdir}/%{name}/*.xml
-%attr(640,root,http) %{_sysconfdir}/%{name}/.htaccess
 %attr(640,root,root) %config(noreplace) %{_sysconfdir}/apache-%{name}.conf
 %attr(660,root,http) %config(noreplace) %{_sysconfdir}/%{name}/*.php
 %attr(640,root,http) %config(noreplace) %{_sysconfdir}/%{name}/*.txt
