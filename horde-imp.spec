@@ -1,7 +1,7 @@
+
 %define name imp
 %define version 4.0.2
 %define pre rc1
-%define release 0.1
 %define fname %{name}-h3-%{version}-%pre
 
 Summary:	Web Based IMAP Mail Program
@@ -10,7 +10,7 @@ Summary(pl):	Program do obs³ugi poczty przez WWW korzystaj±cy z IMAP-a
 Summary(pt_BR):	Programa de Mail via Web
 Name:		%{name}
 Version:	%{version}
-Release:	%{release}
+Release:	0.%{pre}.1
 License:	GPL v2
 Group:		Applications/Mail
 Source0:	ftp://ftp.horde.org/pub/imp/%{fname}.tar.gz
