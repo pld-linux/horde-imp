@@ -1,0 +1,5 @@
+- 2.3.6
+- translation added
+- some cleanups
+- %pre/%post more conventional (PLD-like)
+  NOTE: This is security update. I'm not using this package so... check me...
