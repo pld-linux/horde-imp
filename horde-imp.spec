@@ -4,7 +4,7 @@ Summary(pl):	Program do obs³ugi poczty przez WWW korzystaj±cy z IMAP-a
 Summary(pt_BR):	Programa de Mail via Web
 Name:		imp
 Version:	4.0.1
-Release:	0.1
+Release:	0.2
 License:	GPL v2
 Group:		Applications/Mail
 Source0:	ftp://ftp.horde.org/pub/imp/%{name}-h3-%{version}.tar.gz
@@ -56,14 +56,16 @@ Programa de Mail via Web baseado no IMAP.
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{apachedir},/etc/cron.daily,%{confdir}/imp} \
-	$RPM_BUILD_ROOT%{hordedir}/imp/{lib,locale,scripts,templates}
+	$RPM_BUILD_ROOT%{hordedir}/imp/{lib,locale,scripts,templates,themes}
 
 cp -pR	*.php			$RPM_BUILD_ROOT%{hordedir}/imp
 cp -pR	config/*.dist		$RPM_BUILD_ROOT%{confdir}/imp
+cp -pR	config/*.xml		$RPM_BUILD_ROOT%{confdir}/imp
 cp -pR	lib/*			$RPM_BUILD_ROOT%{hordedir}/imp/lib
 cp -pR	locale/*		$RPM_BUILD_ROOT%{hordedir}/imp/locale
 cp -pR	scripts/*.php		$RPM_BUILD_ROOT%{hordedir}/imp/scripts
 cp -pR	templates/*		$RPM_BUILD_ROOT%{hordedir}/imp/templates
+cp -pR	themes/*		$RPM_BUILD_ROOT%{hordedir}/imp/themes
 
 cp -p	config/.htaccess	$RPM_BUILD_ROOT%{confdir}/imp
 cp -p	locale/.htaccess	$RPM_BUILD_ROOT%{hordedir}/imp/locale
@@ -125,11 +127,13 @@ done
 %attr(750,root,http) %{hordedir}/%{name}/locale
 %attr(750,root,http) %{hordedir}/%{name}/scripts
 %attr(750,root,http) %{hordedir}/%{name}/templates
+%attr(750,root,http) %{hordedir}/%{name}/themes
 
 %attr(750,root,http) %dir %{confdir}/%{name}
 %{hordedir}/%{name}/config
 %attr(640,root,http) %{confdir}/%{name}/*.dist
+%attr(640,root,http) %{confdir}/%{name}/*.xml
 %attr(640,root,http) %{confdir}/%{name}/.htaccess
 %attr(640,root,http) %config(noreplace) %{apachedir}/%{name}.conf
-%attr(640,root,http) %config(noreplace) %{confdir}/%{name}/*.php
-%attr(640,root,http) %config(noreplace) %{confdir}/%{name}/*.txt
+%attr(660,root,http) %config(noreplace) %{confdir}/%{name}/*.php
+%attr(660,root,http) %config(noreplace) %{confdir}/%{name}/*.txt
