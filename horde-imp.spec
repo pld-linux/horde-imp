@@ -1,5 +1,5 @@
 %define		_RC	RC2
-%define		_rel	0.7
+%define		_rel	1
 Summary:	Web Based IMAP Mail Program
 Summary(pl):	Program do obs³ugi poczty przez www korzystaj±cy z IMAP'a
 Summary(es):	Programa de correo vía Internet basado en IMAP
@@ -74,23 +74,7 @@ install scripts/imp-cleanup.cron $RPM_BUILD_ROOT/etc/cron.daily/imp-cleanup
 
 ln -sf	%{contentdir}/html/horde/imp/config $RPM_BUILD_ROOT%{apachedir}/imp
 
-cat <<_EOF2_ > $RPM_BUILD_DIR/%{name}-%{version}/README.install
-IMPORTANT:  If you are installing for the first time, you must now
-configure IMP.  The following commands (run as root) will do this:
-
-# cd %{contentdir}/html/horde
-# sh install.sh
-(visit http://example.com/horde/setup.php3 in a browser)
-# sh secure.sh
-
-If you are using a database, you also need to set the database password:
-
-# sh scripts/database/dbpasswd.sh
-
-(See %{_docdir}/%{name}-%{version}/INSTALL for more information.)
-_EOF2_
-
-gzip -9nf README README.install docs/* scripts/*.reg
+gzip -9nf README docs/* scripts/*.reg
 
 cd $RPM_BUILD_ROOT%{contentdir}/html/horde/imp/config/
 for i in *.dist; do cp $i `basename $i .dist`; done
