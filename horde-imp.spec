@@ -25,7 +25,7 @@ Requires(post,postun):	perl
 Requires:	horde >= 2.0
 Requires:	php-imap
 BuildArch:	noarch
-Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		apachedir	/etc/httpd
 %define		contentdir	/home/services/httpd
