@@ -11,6 +11,7 @@ Release:	%{_RC}.%{_rel}
 License:	GPL v2
 Group:		Applications/Mail
 Source0:	ftp://ftp.horde.org/pub/imp/tarballs/%{name}-%{version}-%{_RC}.tar.gz
+# Source0-md5:	9ed5ba6a0cf7e8959201bc2cb0e0c2d1
 Source1:	%{name}.conf
 Source2:	%{name}-pgsql_create.sql
 Source3:	%{name}-pgsql_cuser.sh
