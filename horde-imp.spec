@@ -4,7 +4,7 @@ Summary(pl):	Program do obs³ugi poczty przez WWW korzystaj±cy z IMAP-a
 Summary(pt_BR):	Programa de Mail via Web
 Name:		imp
 Version:	4.0.2
-Release:	1.6
+Release:	1.7
 License:	GPL v2
 Group:		Applications/Mail
 Source0:	ftp://ftp.horde.org/pub/imp/%{name}-h3-%{version}.tar.gz
@@ -65,8 +65,10 @@ cp -pR	*.php			$RPM_BUILD_ROOT%{_appdir}
 for i in config/*.dist; do
 	cp -p $i $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/$(basename $i .dist)
 done
-cp -pR	config/*.xml		$RPM_BUILD_ROOT%{_sysconfdir}/%{name}
 echo "<?php ?>" > 		$RPM_BUILD_ROOT%{_sysconfdir}/%{name}/conf.php
+sed -e '
+	s,/somewhere/ca-bundle.crt,/usr/share/ssl/ca-bundle.crt,
+' < config/conf.xml > $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/conf.xml
 
 cp -pR	lib/*			$RPM_BUILD_ROOT%{_appdir}/lib
 cp -pR	locale/*		$RPM_BUILD_ROOT%{_appdir}/locale
