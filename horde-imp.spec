@@ -2,8 +2,8 @@
 %define		_RC	RC2
 %define		_rel	1.1
 Summary:	Web Based IMAP Mail Program
-Summary(pl):	Program do obs³ugi poczty przez www korzystaj±cy z IMAP'a
 Summary(es):	Programa de correo vía Internet basado en IMAP
+Summary(pl):	Program do obs³ugi poczty przez www korzystaj±cy z IMAP-a
 Summary(pt_BR):	Programa de Mail via Web
 Name:		imp
 Version:	3.1
@@ -18,15 +18,17 @@ Source4:	%{name}-menu.txt
 Source5:	%{name}-ImpLibVersion.def
 URL:		http://www.horde.org/imp/
 BuildRequires:	rpm-php-pearprov >= 4.0.2-98
+PreReq:		apache
+Requires(post):	grep
+Requires(post,postun):	perl
 Requires:	horde >= 2.0
 Requires:	php-imap
-Prereq:		perl
-Prereq:		webserver
 BuildArch:	noarch
 Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		apachedir	/etc/httpd
 %define		contentdir	/home/services/httpd
+%define		htmldir		%{contentdir}/html
 
 %description
 IMP is the Internet Messaging Program, one of the Horde components. It
@@ -35,6 +37,9 @@ provides webmail access to IMAP and POP3 accounts.
 The Horde Project writes web applications in PHP and releases them
 under the GNU Public License. For more information (including help
 with IMP) please visit http://www.horde.org/.
+
+%description -l es
+Programa de correo vía Internet basado en IMAP.
 
 %description -l pl
 IMP jest programem do obs³ugi poczty przez www, bazowanym na Horde.
@@ -45,10 +50,7 @@ Public License. Je¿eli chcesz siê dowiedzieæ czego¶ wiêcej (tak¿e help
 do IMP'a) zajrzyj na stronê http://www.horde.org
 
 %description -l pt_BR
-Programa de Mail via Web baseado no IMAP
-
-%description -l es
-Programa de correo vía Internet basado en IMAP
+Programa de Mail via Web baseado no IMAP.
 
 %prep
 %setup -q -n %{name}-%{version}
@@ -111,19 +113,19 @@ fi
 %defattr(644,root,root,755)
 %doc README docs/* scripts/*.reg scripts/*.pl
 
-%dir %{contentdir}/html/horde/imp
-%attr(640,root,http) %{contentdir}/html/horde/imp/*.php
-%attr(750,root,http) %{contentdir}/html/horde/imp/graphics
-%attr(750,root,http) %{contentdir}/html/horde/imp/lib
-%attr(750,root,http) %{contentdir}/html/horde/imp/locale
-%attr(750,root,http) %{contentdir}/html/horde/imp/scripts
-%attr(750,root,http) %{contentdir}/html/horde/imp/templates
+%dir %{htmldir}/horde/imp
+%attr(640,root,http) %{htmldir}/horde/imp/*.php
+%attr(750,root,http) %{htmldir}/horde/imp/graphics
+%attr(750,root,http) %{htmldir}/horde/imp/lib
+%attr(750,root,http) %{htmldir}/horde/imp/locale
+%attr(750,root,http) %{htmldir}/horde/imp/scripts
+%attr(750,root,http) %{htmldir}/horde/imp/templates
 
-%attr(750,root,http) %dir %{contentdir}/html/horde/imp/config
-%attr(640,root,http) %{contentdir}/html/horde/imp/config/*.dist
-%attr(640,root,http) %{contentdir}/html/horde/imp/config/.htaccess
+%attr(750,root,http) %dir %{htmldir}/horde/imp/config
+%attr(640,root,http) %{htmldir}/horde/imp/config/*.dist
+%attr(640,root,http) %{htmldir}/horde/imp/config/.htaccess
 %attr(640,root,http) %config(noreplace) %{apachedir}/imp.conf
-%attr(640,root,http) %config(noreplace) %{contentdir}/html/horde/imp/config/*.php
-%attr(640,root,http) %config(noreplace) %{contentdir}/html/horde/imp/config/*.txt
+%attr(640,root,http) %config(noreplace) %{htmldir}/horde/imp/config/*.php
+%attr(640,root,http) %config(noreplace) %{htmldir}/horde/imp/config/*.txt
 %attr(755,root,root) %config(noreplace) /etc/cron.daily/imp-cleanup
 %{apachedir}/imp
