@@ -54,7 +54,7 @@ do IMP'a) zajrzyj na stronê http://www.horde.org
 Programa de Mail via Web baseado no IMAP.
 
 %prep
-%setup -q -n %{name}-%{version}
+%setup -q
 
 %install
 rm -rf $RPM_BUILD_ROOT
