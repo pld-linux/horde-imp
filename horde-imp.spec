@@ -1,6 +1,6 @@
 
 %define name imp
-%define version 4.0.2
+%define version 4.0.3
 %define pre rc1
 %define fname %{name}-h3-%{version}-%pre
 
@@ -14,7 +14,7 @@ Release:	0.%{pre}.1
 License:	GPL v2
 Group:		Applications/Mail
 Source0:	ftp://ftp.horde.org/pub/imp/%{fname}.tar.gz
-# Source0-md5:	7dd6427b0ca4faf1a4410c4a855f007c
+# Source0-md5:	f44792d93d2b1f0422f6ee05075c31d9
 Source1:	%{name}.conf
 Source2:	%{name}-pgsql_create.sql
 Source3:	%{name}-pgsql_cuser.sh
