@@ -1,0 +1,19 @@
+--- imp-2.2.3/config/lang.php3.orig	Fri Oct 13 16:52:36 2000
++++ imp-2.2.3/config/lang.php3	Fri Oct 13 16:52:42 2000
+@@ -55,11 +55,14 @@
+ $lang->charset['zh-tw'] = 'Big5';
+ 
+ /* multi-language spelling support */
++/* brazilian, american, espa~nol hash ispell support added 
++- moises@conectiva.com.br*/ 
++$default->ispell_lang['pt-BR'] = '-d brazilian';
+ $default->ispell_lang['cs'] = '-T latin2 -d czech';
+ $default->ispell_lang['da'] = '-T latin1 -d dansk';
+ $default->ispell_lang['de'] = '-T latin1 -d deutsch';
+-$default->ispell_lang['en'] = '-d english';
+-$default->ispell_lang['es'] = '-d espanol';
++$default->ispell_lang['en'] = '-d american';
++$default->ispell_lang['es'] = '-d espa~nol';
+ $default->ispell_lang['fr'] = '-d francais';
+ $default->ispell_lang['it'] = '-T latin1 -d italian';
+ $default->ispell_lang['nl'] = '-d nederlands';

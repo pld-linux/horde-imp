@@ -1,0 +1,8 @@
+/*
+Not needed anymore, since it's not being updated when lib versions change.
+$temp_ver = '$Revision$';
+$temp_ver = str_replace('Revision: ', '', $temp_ver);
+$temp_ver = str_replace('$', '', $temp_ver);
+*/
+
+define("IMP_VERSION",  "2.0.11");
