@@ -61,7 +61,7 @@ install -d $RPM_BUILD_ROOT{%{apachedir},/etc/cron.daily,%{confdir}/imp} \
 cp -pR	*.php			$RPM_BUILD_ROOT%{hordedir}/imp
 cp -pR	config/*.dist		$RPM_BUILD_ROOT%{confdir}/imp
 cp -pR	config/*.xml		$RPM_BUILD_ROOT%{confdir}/imp
-echo "<?php ?>" > $RPM_BUILD_ROOT%{confdir}/imp/conf.php
+echo "<?php ?>" > 		$RPM_BUILD_ROOT%{confdir}/imp/conf.php
 cp -pR	lib/*			$RPM_BUILD_ROOT%{hordedir}/imp/lib
 cp -pR	locale/*		$RPM_BUILD_ROOT%{hordedir}/imp/locale
 cp -pR	scripts/*.php		$RPM_BUILD_ROOT%{hordedir}/imp/scripts
@@ -73,9 +73,9 @@ cp -p	locale/.htaccess	$RPM_BUILD_ROOT%{hordedir}/imp/locale
 cp -p	scripts/.htaccess	$RPM_BUILD_ROOT%{hordedir}/imp/scripts
 cp -p	templates/.htaccess	$RPM_BUILD_ROOT%{hordedir}/imp/templates
 
-ln -sf	%{confdir}/%{name} $RPM_BUILD_ROOT%{hordedir}/%{name}/config
+ln -sf	%{confdir}/%{name} 	$RPM_BUILD_ROOT%{hordedir}/%{name}/config
 
-install %{SOURCE1} $RPM_BUILD_ROOT%{apachedir}
+install %{SOURCE1} 		$RPM_BUILD_ROOT%{apachedir}
 
 cd $RPM_BUILD_ROOT%{confdir}/imp
 for i in *.dist; do cp $i `basename $i .dist`; done
