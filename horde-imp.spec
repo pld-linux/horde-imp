@@ -4,7 +4,7 @@ Summary(pl):	Program do obs³ugi poczty przez WWW korzystaj±cy z IMAP-a
 Summary(pt_BR):	Programa de Mail via Web
 Name:		imp
 Version:	4.0.2
-Release:	1.10
+Release:	1.12
 License:	GPL v2
 Group:		Applications/Mail
 Source0:	ftp://ftp.horde.org/pub/imp/%{name}-h3-%{version}.tar.gz
@@ -24,9 +24,12 @@ Requires:	php-ctype
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
+# horde accesses it directly in help->about
+%define		_noautocompressdoc  CREDITS
+
 %define		hordedir	/usr/share/horde
-%define		_appdir		%{hordedir}/%{name}
 %define		_sysconfdir		/etc/horde.org
+%define		_appdir		%{hordedir}/%{name}
 %define		_apache1dir	/etc/apache
 %define		_apache2dir	/etc/httpd
 
@@ -62,7 +65,7 @@ rm -f test.php
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{/etc/cron.daily,%{_sysconfdir}/imp} \
-	$RPM_BUILD_ROOT%{_appdir}/{lib,locale,scripts,templates,themes}
+	$RPM_BUILD_ROOT%{_appdir}/{docs,lib,locale,scripts,templates,themes}
 
 cp -pR	*.php			$RPM_BUILD_ROOT%{_appdir}
 for i in config/*.dist; do
@@ -79,7 +82,8 @@ cp -pR	locale/*		$RPM_BUILD_ROOT%{_appdir}/locale
 cp -pR	templates/*		$RPM_BUILD_ROOT%{_appdir}/templates
 cp -pR	themes/*		$RPM_BUILD_ROOT%{_appdir}/themes
 
-ln -s	%{_sysconfdir}/%{name} 	$RPM_BUILD_ROOT%{_appdir}/config
+ln -s %{_sysconfdir}/%{name} 	$RPM_BUILD_ROOT%{_appdir}/config
+ln -s %{_defaultdocdir}/%{name}-%{version}/CREDITS $RPM_BUILD_ROOT%{_appdir}/docs
 
 install %{SOURCE1} 		$RPM_BUILD_ROOT%{_sysconfdir}/apache-%{name}.conf
 install %{SOURCE6}		$RPM_BUILD_ROOT%{_appdir}/locale/pl_PL/LC_MESSAGES/%{name}.mo
@@ -151,8 +155,9 @@ fi
 %attr(640,root,http) %{_sysconfdir}/%{name}/*.xml
 
 %dir %{_appdir}
-%{_appdir}/config
 %{_appdir}/*.php
+%{_appdir}/config
+%{_appdir}/docs
 %{_appdir}/lib
 %{_appdir}/locale
 %{_appdir}/templates
