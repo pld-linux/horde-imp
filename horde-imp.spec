@@ -7,9 +7,6 @@ Version:	2.3.6
 Release:	1
 License:	GPL
 Group:		Applications/Mail
-Group(de):	Applikationen/Post
-Group(pl):	Aplikacje/Poczta
-Group(pt):	Aplicações/Correio Eletrônico
 Source0:	ftp://ftp.horde.org/pub/imp/tarballs/%{name}-%{version}.tar.gz
 Source1:	%{name}-pgsql_create.sql
 Source2:	%{name}-pgsql_cuser.sh
