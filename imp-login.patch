@@ -1,11 +1,11 @@
---- imp-h3-4.0.2-rc1/templates/login/login.inc		2005-02-03 16:08:04.363519592 +0100
-+++ imp-h3-4.0.2-rc1-new/templates/login/login.inc	2005-02-03 16:10:49.766374536 +0100
+--- imp-h3-4.0.1/templates/login/login.inc	2005-02-06 10:40:15.072740776 +0100
++++ imp-h3-4.0.1-new/templates/login/login.inc	2005-02-06 10:40:53.603883152 +0100
 @@ -123,7 +123,7 @@
  <br class="spacer" />
  <?php $notification->notify(array('listeners' => 'status')) ?>
  
--<table width="100%"><tr><td align="center"><table width="300" align="center">
-+<table width="100%"><tr><td align="center"><table width="300" align="center" style="margin: auto;">
+-<table width="100%"><tr><td align="center"><table border="0" width="300">
++<table width="100%"><tr><td align="center"><table border="0" width="300" style="margin: auto;">
  
  <?php if (!empty($reason)): ?>
  <tr>
