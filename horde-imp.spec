@@ -4,7 +4,7 @@ Summary(pl):	Program do obs³ugi poczty przez WWW korzystaj±cy z IMAP-a
 Summary(pt_BR):	Programa de Mail via Web
 Name:		imp
 Version:	4.0.2
-Release:	1
+Release:	1.1
 License:	GPL v2
 Group:		Applications/Mail
 Source0:	ftp://ftp.horde.org/pub/imp/%{name}-h3-%{version}.tar.gz
@@ -27,7 +27,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		apachedir	/etc/httpd
 %define		hordedir	/usr/share/horde
-%define		confdir		/etc/horde.org
+%define		_sysconfdir		/etc/horde.org
 
 %description
 IMP is the Internet Messaging Program, one of the Horde components. It
@@ -35,7 +35,7 @@ provides webmail access to IMAP and POP3 accounts.
 
 The Horde Project writes web applications in PHP and releases them
 under the GNU Public License. For more information (including help
-with IMP) please visit http://www.horde.org/ .
+with IMP) please visit <http://www.horde.org/>.
 
 %description -l es
 Programa de correo vía Internet basado en IMAP.
@@ -46,7 +46,7 @@ Daje dostêp do poczty poprzez IMAP oraz POP3.
 
 Projekt Horde tworzy aplikacje w PHP i dostarcza je na licencji GNU
 Public License. Je¿eli chcesz siê dowiedzieæ czego¶ wiêcej (tak¿e help
-do IMP-a) zajrzyj na stronê http://www.horde.org/ .
+do IMP-a) zajrzyj na stronê <http://www.horde.org/>.
 
 %description -l pt_BR
 Programa de Mail via Web baseado no IMAP.
@@ -57,30 +57,30 @@ Programa de Mail via Web baseado no IMAP.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{apachedir},/etc/cron.daily,%{confdir}/imp} \
+install -d $RPM_BUILD_ROOT{%{apachedir},/etc/cron.daily,%{_sysconfdir}/imp} \
 	$RPM_BUILD_ROOT%{hordedir}/imp/{lib,locale,scripts,templates,themes}
 
 cp -pR	*.php			$RPM_BUILD_ROOT%{hordedir}/imp
-cp -pR	config/*.dist		$RPM_BUILD_ROOT%{confdir}/imp
-cp -pR	config/*.xml		$RPM_BUILD_ROOT%{confdir}/imp
-echo "<?php ?>" > 		$RPM_BUILD_ROOT%{confdir}/imp/conf.php
+cp -pR	config/*.dist		$RPM_BUILD_ROOT%{_sysconfdir}/imp
+cp -pR	config/*.xml		$RPM_BUILD_ROOT%{_sysconfdir}/imp
+echo "<?php ?>" > 		$RPM_BUILD_ROOT%{_sysconfdir}/imp/conf.php
 cp -pR	lib/*			$RPM_BUILD_ROOT%{hordedir}/imp/lib
 cp -pR	locale/*		$RPM_BUILD_ROOT%{hordedir}/imp/locale
 cp -pR	scripts/*.php		$RPM_BUILD_ROOT%{hordedir}/imp/scripts
 cp -pR	templates/*		$RPM_BUILD_ROOT%{hordedir}/imp/templates
 cp -pR	themes/*		$RPM_BUILD_ROOT%{hordedir}/imp/themes
 
-cp -p	config/.htaccess	$RPM_BUILD_ROOT%{confdir}/imp
+cp -p	config/.htaccess	$RPM_BUILD_ROOT%{_sysconfdir}/imp
 cp -p	locale/.htaccess	$RPM_BUILD_ROOT%{hordedir}/imp/locale
 cp -p	scripts/.htaccess	$RPM_BUILD_ROOT%{hordedir}/imp/scripts
 cp -p	templates/.htaccess	$RPM_BUILD_ROOT%{hordedir}/imp/templates
 
-ln -sf	%{confdir}/%{name} 	$RPM_BUILD_ROOT%{hordedir}/%{name}/config
+ln -sf	%{_sysconfdir}/%{name} 	$RPM_BUILD_ROOT%{hordedir}/%{name}/config
 
 install %{SOURCE1} 		$RPM_BUILD_ROOT%{apachedir}
 install %{SOURCE6} 		$RPM_BUILD_ROOT%{hordedir}/imp/locale/pl_PL/LC_MESSAGES/imp.mo
 
-cd $RPM_BUILD_ROOT%{confdir}/imp
+cd $RPM_BUILD_ROOT%{_sysconfdir}/imp
 for i in *.dist; do cp $i `basename $i .dist`; done
 
 %clean
@@ -117,8 +117,8 @@ fi
 %triggerpostun -- imp <= 3.2.6-0.1
 for i in conf.php filter.txt header.txt html.php menu.php mime_drivers.php motd.php prefs.php servers.php trailer.txt; do
 	if [ -f /home/services/httpd/html/horde/imp/config/$i.rpmsave ]; then
-		mv -f %{confdir}/%{name}/$i %{confdir}/%{name}/$i.rpmnew
-		mv -f /home/services/httpd/html/horde/imp/config/$i.rpmsave %{confdir}/%{name}/$i
+		mv -f %{_sysconfdir}/%{name}/$i %{_sysconfdir}/%{name}/$i.rpmnew
+		mv -f /home/services/httpd/html/horde/imp/config/$i.rpmsave %{_sysconfdir}/%{name}/$i
 	fi
 done
 
@@ -133,11 +133,11 @@ done
 %attr(750,root,http) %{hordedir}/%{name}/templates
 %attr(750,root,http) %{hordedir}/%{name}/themes
 
-%attr(750,root,http) %dir %{confdir}/%{name}
+%attr(750,root,http) %dir %{_sysconfdir}/%{name}
 %{hordedir}/%{name}/config
-%attr(640,root,http) %{confdir}/%{name}/*.dist
-%attr(640,root,http) %{confdir}/%{name}/*.xml
-%attr(640,root,http) %{confdir}/%{name}/.htaccess
+%attr(640,root,http) %{_sysconfdir}/%{name}/*.dist
+%attr(640,root,http) %{_sysconfdir}/%{name}/*.xml
+%attr(640,root,http) %{_sysconfdir}/%{name}/.htaccess
 %attr(640,root,http) %config(noreplace) %{apachedir}/%{name}.conf
-%attr(660,root,http) %config(noreplace) %{confdir}/%{name}/*.php
-%attr(640,root,http) %config(noreplace) %{confdir}/%{name}/*.txt
+%attr(660,root,http) %config(noreplace) %{_sysconfdir}/%{name}/*.php
+%attr(640,root,http) %config(noreplace) %{_sysconfdir}/%{name}/*.txt
