@@ -21,6 +21,7 @@ PreReq:		apache
 Requires(post):	grep
 Requires:	horde >= 3.0
 Requires:	php-imap
+Requires:	php-ctype
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
