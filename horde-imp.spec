@@ -1,4 +1,3 @@
-%include	/usr/lib/rpm/macros.php
 Summary:	Web Based IMAP Mail Program
 Summary(es):	Programa de correo vía Internet basado en IMAP
 Summary(pl):	Program do obs³ugi poczty przez WWW korzystaj±cy z IMAP-a
@@ -17,15 +16,12 @@ Source4:	%{name}-menu.txt
 Source5:	%{name}-ImpLibVersion.def
 #Patch0:		%{name}-path.patch
 URL:		http://www.horde.org/imp/
-BuildRequires:	rpm-php-pearprov >= 4.0.2-98
 PreReq:		apache
 Requires(post):	grep
 Requires:	horde >= 3.0
 Requires:	php-imap
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-
-%define         _noautoreq      'pear(XML/WBXML.*)' 'pear(Horde.*)' 'pear(Text/.*)' 'pear(Net/IMSP.*)' 'pear(\.\./lib.*)'
 
 %define		apachedir	/etc/httpd
 %define		hordedir	/usr/share/horde
