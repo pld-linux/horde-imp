@@ -3,12 +3,12 @@ Summary(es):	Programa de correo vía Internet basado en IMAP
 Summary(pl):	Program do obs³ugi poczty przez WWW korzystaj±cy z IMAP-a
 Summary(pt_BR):	Programa de Mail via Web
 Name:		imp
-Version:	4.0
-Release:	0.2
+Version:	4.0.1
+Release:	0.1
 License:	GPL v2
 Group:		Applications/Mail
 Source0:	ftp://ftp.horde.org/pub/imp/%{name}-h3-%{version}.tar.gz
-# Source0-md5:  41b7888089f98e06da6bb5f92ad1e8e7
+# Source0-md5:	38ccfae6ecbe6acf4b082e3c6a7493e8
 Source1:	%{name}.conf
 Source2:	%{name}-pgsql_create.sql
 Source3:	%{name}-pgsql_cuser.sh
