@@ -1,21 +1,22 @@
+%define		_RC	RC2
+%define		_rel	0.1
 Summary:	Web Based IMAP Mail Program
 Summary(pl):	Program do obs³ugi poczty przez www korzystaj±cy z IMAP'a
 Summary(es):	Programa de correo vía Internet basado en IMAP
 Summary(pt_BR):	Programa de Mail via Web
 Name:		imp
-Version:	2.3.6
-Release:	1
+Version:	3.1
+Release:	%{_RC}.%{_rel}
 License:	GPL
 Group:		Applications/Mail
-Source0:	ftp://ftp.horde.org/pub/imp/tarballs/%{name}-%{version}.tar.gz
-Source1:	%{name}-pgsql_create.sql
-Source2:	%{name}-pgsql_cuser.sh
-Source3:	%{name}-menu.txt
-Source4:	%{name}-ImpLibVersion.def
-Source5:	%{name}.conf
+Source0:	ftp://ftp.horde.org/pub/imp/tarballs/%{name}-%{version}-%{_RC}.tar.gz
+Source1:	%{name}.conf
+Source2:	%{name}-pgsql_create.sql
+Source3:	%{name}-pgsql_cuser.sh
+Source4:	%{name}-menu.txt
+Source5:	%{name}-ImpLibVersion.def
 URL:		http://www.horde.org/imp/
-Requires:	horde = 1.2.6
-Requires:	horde-phplib-storage
+Requires:	horde >= 2.0
 Requires:	php-imap
 Prereq:		perl
 Prereq:		webserver
@@ -52,11 +53,11 @@ Programa de correo vía Internet basado en IMAP
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d %{buildroot}%{apachedir}/conf
+install -d $RPM_BUILD_ROOT%{apachedir}
+install -d $RPM_BUILD_ROOT%{contentdir}/html/horde/imp
 
-cp -p $RPM_SOURCE_DIR/imp.conf %{buildroot}%{apachedir}/conf
-install -d %{buildroot}%{contentdir}/html/horde/imp
-cp -pR * %{buildroot}%{contentdir}/html/horde/imp
+install %{SOURCE1} $RPM_BUILD_ROOT%{apachedir}
+cp -pR * $RPM_BUILD_ROOT%{contentdir}/html/horde/imp
 
 cat <<_EOF2_ > $RPM_BUILD_DIR/%{name}-%{version}/README.install
 IMPORTANT:  If you are installing for the first time, you must now
@@ -78,40 +79,38 @@ _EOF2_
 gzip -9nf README README.install
 
 %clean
-rm -rf %{buildroot}
+rm -rf $RPM_BUILD_ROOT
 
 %post
-grep -i 'Include.*imp.conf$' %{apachedir}/conf/httpd.conf >/dev/null 2>&1
+grep -i 'Include.*imp.conf$' %{apachedir}/httpd.conf >/dev/null 2>&1
 echo "Changing apache configuration"
 if [ $? -eq 0 ]; then
-	perl -pi -e 's/^#+// if (/Include.*imp.conf$/i);' %{apachedir}/conf/httpd.conf
+	perl -pi -e 's/^#+// if (/Include.*imp.conf$/i);' %{apachedir}/httpd.conf
 else
-	echo "Include %{apachedir}/conf/imp.conf" >>%{apachedir}/conf/httpd.conf
+	echo "Include %{apachedir}/imp.conf" >>%{apachedir}/httpd.conf
 fi
 
 if [ -f /var/lock/subsys/httpd ]; then
-	echo "Restarting httpd daemon"
 	/etc/rc.d/init.d/httpd restart 1>&2
 else
-	echo "Run \"/etc/rc.d/init.d/httpd start\" to start apache http daemon."
+	echo "Run \"/etc/rc.d/init.d/httpd start\" to start http daemon."
 fi
 
 
 %postun
 echo "Changing apache configuration"
-perl -pi -e 's/^/#/ if (/^Include.*imp.conf$/i);' %{apachedir}/conf/httpd.conf
+perl -pi -e 's/^/#/ if (/^Include.*imp.conf$/i);' %{apachedir}/httpd.conf
 if [ -f /var/lock/subsys/httpd ]; then
-	echo "Restarting httpd daemon"
 	/etc/rc.d/init.d/httpd restart 1>&2
 else
-	echo "Run \"/etc/rc.d/init.d/httpd start\" to start apache http daemon."
+	echo "Run \"/etc/rc.d/init.d/httpd start\" to start http daemon."
 fi
 
 %files
 %defattr(644,root,root,755)
 
 # Apache imp.conf file
-%config %{apachedir}/conf/imp.conf
+%config %{apachedir}/imp.conf
 
 # Include top level with %dir so not all files are sucked in
 %dir %{contentdir}/html/horde/imp
