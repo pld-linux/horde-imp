@@ -5,7 +5,7 @@ Summary(pl):	Program do obs³ugi poczty przez WWW korzystaj±cy z IMAP-a
 Summary(pt_BR):	Programa de Mail via Web
 Name:		imp
 Version:	4.0
-Release:	0.1
+Release:	0.2
 License:	GPL v2
 Group:		Applications/Mail
 Source0:	ftp://ftp.horde.org/pub/imp/%{name}-h3-%{version}.tar.gz
@@ -25,7 +25,7 @@ Requires:	php-imap
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define         _noautoreq      'pear(XML/WBXML.*)' 'pear(Horde.*)' 'pear(Text/.*)' 'pear(Net/IMSP.*)'
+%define         _noautoreq      'pear(XML/WBXML.*)' 'pear(Horde.*)' 'pear(Text/.*)' 'pear(Net/IMSP.*)' 'pear(\.\./lib.*)'
 
 %define		apachedir	/etc/httpd
 %define		hordedir	/usr/share/horde
