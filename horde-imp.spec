@@ -4,7 +4,7 @@ Summary(pl):	Program do obs³ugi poczty przez WWW korzystaj±cy z IMAP-a
 Summary(pt_BR):	Programa de Mail via Web
 Name:		imp
 Version:	4.0.2
-Release:	1.8
+Release:	1.9
 License:	GPL v2
 Group:		Applications/Mail
 Source0:	ftp://ftp.horde.org/pub/imp/%{name}-h3-%{version}.tar.gz
@@ -73,7 +73,6 @@ sed -e '
 
 cp -pR	lib/*			$RPM_BUILD_ROOT%{_appdir}/lib
 cp -pR	locale/*		$RPM_BUILD_ROOT%{_appdir}/locale
-cp -pR	scripts/*.php		$RPM_BUILD_ROOT%{_appdir}/scripts
 cp -pR	templates/*		$RPM_BUILD_ROOT%{_appdir}/templates
 cp -pR	themes/*		$RPM_BUILD_ROOT%{_appdir}/themes
 
@@ -139,7 +138,7 @@ fi
 
 %files
 %defattr(644,root,root,755)
-%doc README docs/* scripts/*.reg
+%doc README docs/* scripts
 %attr(770,root,http) %dir %{_sysconfdir}/%{name}
 %attr(640,root,root) %config(noreplace) %{_sysconfdir}/apache-%{name}.conf
 %attr(660,root,http) %config(noreplace) %{_sysconfdir}/%{name}/conf.php
@@ -153,6 +152,5 @@ fi
 %{_appdir}/*.php
 %{_appdir}/lib
 %{_appdir}/locale
-%{_appdir}/scripts
 %{_appdir}/templates
 %{_appdir}/themes
