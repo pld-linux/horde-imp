@@ -4,7 +4,7 @@ Summary(pl):	Program do obs³ugi poczty przez WWW korzystaj±cy z IMAP-a
 Summary(pt_BR):	Programa de Mail via Web
 Name:		imp
 Version:	4.0.2
-Release:	1.5
+Release:	1.6
 License:	GPL v2
 Group:		Applications/Mail
 Source0:	ftp://ftp.horde.org/pub/imp/%{name}-h3-%{version}.tar.gz
@@ -17,7 +17,7 @@ Source5:	%{name}-ImpLibVersion.def
 Source6:	%{name}-trans.mo
 Patch0:		%{name}-path.patch
 URL:		http://www.horde.org/imp/
-PreReq:		apache >= 1.3.33-2
+Requires:	apache >= 1.3.33-2
 Requires:	horde >= 3.0
 Requires:	php-imap
 Requires:	php-ctype
@@ -58,25 +58,25 @@ Programa de Mail via Web baseado no IMAP.
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{/etc/cron.daily,%{_sysconfdir}/imp} \
-	$RPM_BUILD_ROOT%{hordedir}/imp/{lib,locale,scripts,templates,themes}
+	$RPM_BUILD_ROOT%{hordedir}/%{name}/{lib,locale,scripts,templates,themes}
 
-cp -pR	*.php			$RPM_BUILD_ROOT%{hordedir}/imp
+cp -pR	*.php			$RPM_BUILD_ROOT%{hordedir}/%{name}
 for i in config/*.dist; do
-	cp -p $i $RPM_BUILD_ROOT%{_sysconfdir}/imp/$(basename $i .dist)
+	cp -p $i $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/$(basename $i .dist)
 done
-cp -pR	config/*.xml		$RPM_BUILD_ROOT%{_sysconfdir}/imp
-echo "<?php ?>" > 		$RPM_BUILD_ROOT%{_sysconfdir}/imp/conf.php
+cp -pR	config/*.xml		$RPM_BUILD_ROOT%{_sysconfdir}/%{name}
+echo "<?php ?>" > 		$RPM_BUILD_ROOT%{_sysconfdir}/%{name}/conf.php
 
-cp -pR	lib/*			$RPM_BUILD_ROOT%{hordedir}/imp/lib
-cp -pR	locale/*		$RPM_BUILD_ROOT%{hordedir}/imp/locale
-cp -pR	scripts/*.php		$RPM_BUILD_ROOT%{hordedir}/imp/scripts
-cp -pR	templates/*		$RPM_BUILD_ROOT%{hordedir}/imp/templates
-cp -pR	themes/*		$RPM_BUILD_ROOT%{hordedir}/imp/themes
+cp -pR	lib/*			$RPM_BUILD_ROOT%{hordedir}/%{name}/lib
+cp -pR	locale/*		$RPM_BUILD_ROOT%{hordedir}/%{name}/locale
+cp -pR	scripts/*.php		$RPM_BUILD_ROOT%{hordedir}/%{name}/scripts
+cp -pR	templates/*		$RPM_BUILD_ROOT%{hordedir}/%{name}/templates
+cp -pR	themes/*		$RPM_BUILD_ROOT%{hordedir}/%{name}/themes
 
-ln -sf	%{_sysconfdir}/%{name} 	$RPM_BUILD_ROOT%{hordedir}/%{name}/config
+ln -s	%{_sysconfdir}/%{name} 	$RPM_BUILD_ROOT%{hordedir}/%{name}/config
 
 install %{SOURCE1} 		$RPM_BUILD_ROOT%{_sysconfdir}/apache-%{name}.conf
-install %{SOURCE6} 		$RPM_BUILD_ROOT%{hordedir}/imp/locale/pl_PL/LC_MESSAGES/imp.mo
+install %{SOURCE6}		$RPM_BUILD_ROOT%{hordedir}/%{name}/locale/pl_PL/LC_MESSAGES/%{name}.mo
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -97,7 +97,7 @@ if [ -d %{_apache2dir}/httpd.conf ]; then
 	fi
 fi
 
-%preun
+%postun
 if [ "$1" = "0" ]; then
 	# apache1
 	if [ -d %{_apache1dir}/conf.d ]; then
@@ -137,15 +137,16 @@ fi
 %defattr(644,root,root,755)
 %doc README docs/* scripts/*.reg
 %attr(770,root,http) %dir %{_sysconfdir}/%{name}
-%attr(640,root,http) %{_sysconfdir}/%{name}/*.xml
 %attr(640,root,root) %config(noreplace) %{_sysconfdir}/apache-%{name}.conf
 %attr(660,root,http) %config(noreplace) %{_sysconfdir}/%{name}/*.php
 %attr(640,root,http) %config(noreplace) %{_sysconfdir}/%{name}/*.txt
+%attr(640,root,http) %{_sysconfdir}/%{name}/*.xml
+
 %dir %{hordedir}/%{name}
 %{hordedir}/%{name}/config
-%attr(640,root,http) %{hordedir}/%{name}/*.php
-%attr(750,root,http) %{hordedir}/%{name}/lib
-%attr(750,root,http) %{hordedir}/%{name}/locale
-%attr(750,root,http) %{hordedir}/%{name}/scripts
-%attr(750,root,http) %{hordedir}/%{name}/templates
-%attr(750,root,http) %{hordedir}/%{name}/themes
+%{hordedir}/%{name}/*.php
+%{hordedir}/%{name}/lib
+%{hordedir}/%{name}/locale
+%{hordedir}/%{name}/scripts
+%{hordedir}/%{name}/templates
+%{hordedir}/%{name}/themes
