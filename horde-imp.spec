@@ -58,27 +58,27 @@ Programa de Mail via Web baseado no IMAP.
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{apachedir},/etc/cron.daily}
-install -d $RPM_BUILD_ROOT%{contentdir}/html/horde/imp/{config,graphics,lib,locale,scripts,templates}
+install -d $RPM_BUILD_ROOT%{htmldir}/horde/imp/{config,graphics,lib,locale,scripts,templates}
 
 install %{SOURCE1} $RPM_BUILD_ROOT%{apachedir}
-cp -pR	*.php			$RPM_BUILD_ROOT%{contentdir}/html/horde/imp
-cp -pR	config/*.dist		$RPM_BUILD_ROOT%{contentdir}/html/horde/imp/config
-cp -pR	graphics/*		$RPM_BUILD_ROOT%{contentdir}/html/horde/imp/graphics
-cp -pR	lib/*			$RPM_BUILD_ROOT%{contentdir}/html/horde/imp/lib
-cp -pR	locale/*		$RPM_BUILD_ROOT%{contentdir}/html/horde/imp/locale
-cp -pR	scripts/*.php		$RPM_BUILD_ROOT%{contentdir}/html/horde/imp/scripts
-cp -pR	templates/*		$RPM_BUILD_ROOT%{contentdir}/html/horde/imp/templates
+cp -pR	*.php			$RPM_BUILD_ROOT%{htmldir}/horde/imp
+cp -pR	config/*.dist		$RPM_BUILD_ROOT%{htmldir}/horde/imp/config
+cp -pR	graphics/*		$RPM_BUILD_ROOT%{htmldir}/horde/imp/graphics
+cp -pR	lib/*			$RPM_BUILD_ROOT%{htmldir}/horde/imp/lib
+cp -pR	locale/*		$RPM_BUILD_ROOT%{htmldir}/horde/imp/locale
+cp -pR	scripts/*.php		$RPM_BUILD_ROOT%{htmldir}/horde/imp/scripts
+cp -pR	templates/*		$RPM_BUILD_ROOT%{htmldir}/horde/imp/templates
 
-cp -p	config/.htaccess	$RPM_BUILD_ROOT%{contentdir}/html/horde/imp/config
-cp -p	locale/.htaccess	$RPM_BUILD_ROOT%{contentdir}/html/horde/imp/locale
-cp -p	scripts/.htaccess	$RPM_BUILD_ROOT%{contentdir}/html/horde/imp/scripts
-cp -p	templates/.htaccess	$RPM_BUILD_ROOT%{contentdir}/html/horde/imp/templates
+cp -p	config/.htaccess	$RPM_BUILD_ROOT%{htmldir}/horde/imp/config
+cp -p	locale/.htaccess	$RPM_BUILD_ROOT%{htmldir}/horde/imp/locale
+cp -p	scripts/.htaccess	$RPM_BUILD_ROOT%{htmldir}/horde/imp/scripts
+cp -p	templates/.htaccess	$RPM_BUILD_ROOT%{htmldir}/horde/imp/templates
 
 install scripts/imp-cleanup.cron $RPM_BUILD_ROOT/etc/cron.daily/imp-cleanup
 
-ln -sf	%{contentdir}/html/horde/imp/config $RPM_BUILD_ROOT%{apachedir}/imp
+ln -sf	%{htmldir}/horde/imp/config $RPM_BUILD_ROOT%{apachedir}/imp
 
-cd $RPM_BUILD_ROOT%{contentdir}/html/horde/imp/config/
+cd $RPM_BUILD_ROOT%{htmldir}/horde/imp/config/
 for i in *.dist; do cp $i `basename $i .dist`; done
 
 %clean
