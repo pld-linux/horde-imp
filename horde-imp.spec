@@ -75,7 +75,7 @@ cp -pR	themes/*		$RPM_BUILD_ROOT%{hordedir}/imp/themes
 
 ln -sf	%{_sysconfdir}/%{name} 	$RPM_BUILD_ROOT%{hordedir}/%{name}/config
 
-install %{SOURCE1} 		$RPM_BUILD_ROOT%{_sysconfdir}/apache-imp.conf
+install %{SOURCE1} 		$RPM_BUILD_ROOT%{_sysconfdir}/apache-%{name}.conf
 install %{SOURCE6} 		$RPM_BUILD_ROOT%{hordedir}/imp/locale/pl_PL/LC_MESSAGES/imp.mo
 
 %clean
@@ -136,17 +136,16 @@ fi
 %files
 %defattr(644,root,root,755)
 %doc README docs/* scripts/*.reg
+%attr(750,root,http) %dir %{_sysconfdir}/%{name}
+%attr(640,root,http) %{_sysconfdir}/%{name}/*.xml
+%attr(640,root,root) %config(noreplace) %{_sysconfdir}/apache-%{name}.conf
+%attr(660,root,http) %config(noreplace) %{_sysconfdir}/%{name}/*.php
+%attr(640,root,http) %config(noreplace) %{_sysconfdir}/%{name}/*.txt
 %dir %{hordedir}/%{name}
+%{hordedir}/%{name}/config
 %attr(640,root,http) %{hordedir}/%{name}/*.php
 %attr(750,root,http) %{hordedir}/%{name}/lib
 %attr(750,root,http) %{hordedir}/%{name}/locale
 %attr(750,root,http) %{hordedir}/%{name}/scripts
 %attr(750,root,http) %{hordedir}/%{name}/templates
 %attr(750,root,http) %{hordedir}/%{name}/themes
-
-%attr(750,root,http) %dir %{_sysconfdir}/%{name}
-%{hordedir}/%{name}/config
-%attr(640,root,http) %{_sysconfdir}/%{name}/*.xml
-%attr(640,root,root) %config(noreplace) %{_sysconfdir}/apache-%{name}.conf
-%attr(660,root,http) %config(noreplace) %{_sysconfdir}/%{name}/*.php
-%attr(640,root,http) %config(noreplace) %{_sysconfdir}/%{name}/*.txt
