@@ -74,8 +74,6 @@ install scripts/imp-cleanup.cron $RPM_BUILD_ROOT/etc/cron.daily/imp-cleanup
 
 ln -sf	%{contentdir}/html/horde/imp/config $RPM_BUILD_ROOT%{apachedir}/imp
 
-gzip -9nf README docs/* scripts/*.reg
-
 cd $RPM_BUILD_ROOT%{contentdir}/html/horde/imp/config/
 for i in *.dist; do cp $i `basename $i .dist`; done
 
@@ -109,7 +107,7 @@ fi
 
 %files
 %defattr(644,root,root,755)
-%doc *.gz docs/*.gz scripts/*.gz scripts/*.pl
+%doc README docs/* scripts/*.reg scripts/*.pl
 
 %dir %{contentdir}/html/horde/imp
 %attr(640,root,http) %{contentdir}/html/horde/imp/*.php
