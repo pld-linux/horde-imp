@@ -25,6 +25,7 @@ BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		hordedir	/usr/share/horde
+%define		_appdir		%{hordedir}/%{name}
 %define		_sysconfdir		/etc/horde.org
 %define		_apache1dir	/etc/apache
 %define		_apache2dir	/etc/httpd
@@ -58,25 +59,25 @@ Programa de Mail via Web baseado no IMAP.
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{/etc/cron.daily,%{_sysconfdir}/imp} \
-	$RPM_BUILD_ROOT%{hordedir}/%{name}/{lib,locale,scripts,templates,themes}
+	$RPM_BUILD_ROOT%{_appdir}/{lib,locale,scripts,templates,themes}
 
-cp -pR	*.php			$RPM_BUILD_ROOT%{hordedir}/%{name}
+cp -pR	*.php			$RPM_BUILD_ROOT%{_appdir}
 for i in config/*.dist; do
 	cp -p $i $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/$(basename $i .dist)
 done
 cp -pR	config/*.xml		$RPM_BUILD_ROOT%{_sysconfdir}/%{name}
 echo "<?php ?>" > 		$RPM_BUILD_ROOT%{_sysconfdir}/%{name}/conf.php
 
-cp -pR	lib/*			$RPM_BUILD_ROOT%{hordedir}/%{name}/lib
-cp -pR	locale/*		$RPM_BUILD_ROOT%{hordedir}/%{name}/locale
-cp -pR	scripts/*.php		$RPM_BUILD_ROOT%{hordedir}/%{name}/scripts
-cp -pR	templates/*		$RPM_BUILD_ROOT%{hordedir}/%{name}/templates
-cp -pR	themes/*		$RPM_BUILD_ROOT%{hordedir}/%{name}/themes
+cp -pR	lib/*			$RPM_BUILD_ROOT%{_appdir}/lib
+cp -pR	locale/*		$RPM_BUILD_ROOT%{_appdir}/locale
+cp -pR	scripts/*.php		$RPM_BUILD_ROOT%{_appdir}/scripts
+cp -pR	templates/*		$RPM_BUILD_ROOT%{_appdir}/templates
+cp -pR	themes/*		$RPM_BUILD_ROOT%{_appdir}/themes
 
-ln -s	%{_sysconfdir}/%{name} 	$RPM_BUILD_ROOT%{hordedir}/%{name}/config
+ln -s	%{_sysconfdir}/%{name} 	$RPM_BUILD_ROOT%{_appdir}/config
 
 install %{SOURCE1} 		$RPM_BUILD_ROOT%{_sysconfdir}/apache-%{name}.conf
-install %{SOURCE6}		$RPM_BUILD_ROOT%{hordedir}/%{name}/locale/pl_PL/LC_MESSAGES/%{name}.mo
+install %{SOURCE6}		$RPM_BUILD_ROOT%{_appdir}/locale/pl_PL/LC_MESSAGES/%{name}.mo
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -142,11 +143,11 @@ fi
 %attr(640,root,http) %config(noreplace) %{_sysconfdir}/%{name}/*.txt
 %attr(640,root,http) %{_sysconfdir}/%{name}/*.xml
 
-%dir %{hordedir}/%{name}
-%{hordedir}/%{name}/config
-%{hordedir}/%{name}/*.php
-%{hordedir}/%{name}/lib
-%{hordedir}/%{name}/locale
-%{hordedir}/%{name}/scripts
-%{hordedir}/%{name}/templates
-%{hordedir}/%{name}/themes
+%dir %{_appdir}
+%{_appdir}/config
+%{_appdir}/*.php
+%{_appdir}/lib
+%{_appdir}/locale
+%{_appdir}/scripts
+%{_appdir}/templates
+%{_appdir}/themes
