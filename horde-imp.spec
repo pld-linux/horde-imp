@@ -5,7 +5,7 @@ Summary(pl):	Program do obs³ugi poczty przez WWW korzystaj±cy z IMAP-a
 Summary(pt_BR):	Programa de Mail via Web
 Name:		imp
 Version:	3.2.6
-Release:	0.5
+Release:	0.6
 License:	GPL v2
 Group:		Applications/Mail
 Source0:	ftp://ftp.horde.org/pub/imp/tarballs/%{name}-%{version}.tar.gz
@@ -59,7 +59,7 @@ Programa de Mail via Web baseado no IMAP.
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{apachedir},/etc/cron.daily,%{confdir}/imp} \
-	$RPM_BUILD_ROOT%{hordedir}/imp/{config,graphics,lib,locale,scripts,templates}
+	$RPM_BUILD_ROOT%{hordedir}/imp/{graphics,lib,locale,scripts,templates}
 
 cp -pR	*.php			$RPM_BUILD_ROOT%{hordedir}/imp
 cp -pR	config/*.dist		$RPM_BUILD_ROOT%{confdir}/imp
