@@ -1,12 +1,16 @@
+# TODO:
+# - trigger to move configuration
+# - move config to /etc
+# - fix %post to be like in phpMyAdmin
+#
 %include	/usr/lib/rpm/macros.php
-%define		_rel	0.1
 Summary:	Web Based IMAP Mail Program
 Summary(es):	Programa de correo vía Internet basado en IMAP
 Summary(pl):	Program do obs³ugi poczty przez WWW korzystaj±cy z IMAP-a
 Summary(pt_BR):	Programa de Mail via Web
 Name:		imp
 Version:	3.2.6
-Release:	%{_rel}
+Release:	0.2
 License:	GPL v2
 Group:		Applications/Mail
 Source0:	ftp://ftp.horde.org/pub/imp/tarballs/%{name}-%{version}.tar.gz
@@ -27,8 +31,7 @@ BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		apachedir	/etc/httpd
-%define		contentdir	/home/services/httpd
-%define		htmldir		%{contentdir}/html
+%define		hordedir	/usr/share/horde
 
 %description
 IMP is the Internet Messaging Program, one of the Horde components. It
@@ -58,27 +61,27 @@ Programa de Mail via Web baseado no IMAP.
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{apachedir},/etc/cron.daily}
-install -d $RPM_BUILD_ROOT%{htmldir}/horde/imp/{config,graphics,lib,locale,scripts,templates}
+install -d $RPM_BUILD_ROOT%{hordedir}/imp/{config,graphics,lib,locale,scripts,templates}
 
 install %{SOURCE1} $RPM_BUILD_ROOT%{apachedir}
-cp -pR	*.php			$RPM_BUILD_ROOT%{htmldir}/horde/imp
-cp -pR	config/*.dist		$RPM_BUILD_ROOT%{htmldir}/horde/imp/config
-cp -pR	graphics/*		$RPM_BUILD_ROOT%{htmldir}/horde/imp/graphics
-cp -pR	lib/*			$RPM_BUILD_ROOT%{htmldir}/horde/imp/lib
-cp -pR	locale/*		$RPM_BUILD_ROOT%{htmldir}/horde/imp/locale
-cp -pR	scripts/*.php		$RPM_BUILD_ROOT%{htmldir}/horde/imp/scripts
-cp -pR	templates/*		$RPM_BUILD_ROOT%{htmldir}/horde/imp/templates
+cp -pR	*.php			$RPM_BUILD_ROOT%{hordedir}/imp
+cp -pR	config/*.dist		$RPM_BUILD_ROOT%{hordedir}/imp/config
+cp -pR	graphics/*		$RPM_BUILD_ROOT%{hordedir}/imp/graphics
+cp -pR	lib/*			$RPM_BUILD_ROOT%{hordedir}/imp/lib
+cp -pR	locale/*		$RPM_BUILD_ROOT%{hordedir}/imp/locale
+cp -pR	scripts/*.php		$RPM_BUILD_ROOT%{hordedir}/imp/scripts
+cp -pR	templates/*		$RPM_BUILD_ROOT%{hordedir}/imp/templates
 
-cp -p	config/.htaccess	$RPM_BUILD_ROOT%{htmldir}/horde/imp/config
-cp -p	locale/.htaccess	$RPM_BUILD_ROOT%{htmldir}/horde/imp/locale
-cp -p	scripts/.htaccess	$RPM_BUILD_ROOT%{htmldir}/horde/imp/scripts
-cp -p	templates/.htaccess	$RPM_BUILD_ROOT%{htmldir}/horde/imp/templates
+cp -p	config/.htaccess	$RPM_BUILD_ROOT%{hordedir}/imp/config
+cp -p	locale/.htaccess	$RPM_BUILD_ROOT%{hordedir}/imp/locale
+cp -p	scripts/.htaccess	$RPM_BUILD_ROOT%{hordedir}/imp/scripts
+cp -p	templates/.htaccess	$RPM_BUILD_ROOT%{hordedir}/imp/templates
 
 install scripts/imp-cleanup.cron $RPM_BUILD_ROOT/etc/cron.daily/imp-cleanup
 
-ln -sf	%{htmldir}/horde/imp/config $RPM_BUILD_ROOT%{apachedir}/imp
+ln -sf	%{hordedir}/imp/config $RPM_BUILD_ROOT%{apachedir}/imp
 
-cd $RPM_BUILD_ROOT%{htmldir}/horde/imp/config/
+cd $RPM_BUILD_ROOT%{hordedir}/imp/config/
 for i in *.dist; do cp $i `basename $i .dist`; done
 
 %clean
@@ -112,19 +115,19 @@ fi
 %defattr(644,root,root,755)
 %doc README docs/* scripts/*.reg scripts/*.pl
 
-%dir %{htmldir}/horde/imp
-%attr(640,root,http) %{htmldir}/horde/imp/*.php
-%attr(750,root,http) %{htmldir}/horde/imp/graphics
-%attr(750,root,http) %{htmldir}/horde/imp/lib
-%attr(750,root,http) %{htmldir}/horde/imp/locale
-%attr(750,root,http) %{htmldir}/horde/imp/scripts
-%attr(750,root,http) %{htmldir}/horde/imp/templates
+%dir %{hordedir}/imp
+%attr(640,root,http) %{hordedir}/imp/*.php
+%attr(750,root,http) %{hordedir}/imp/graphics
+%attr(750,root,http) %{hordedir}/imp/lib
+%attr(750,root,http) %{hordedir}/imp/locale
+%attr(750,root,http) %{hordedir}/imp/scripts
+%attr(750,root,http) %{hordedir}/imp/templates
 
-%attr(750,root,http) %dir %{htmldir}/horde/imp/config
-%attr(640,root,http) %{htmldir}/horde/imp/config/*.dist
-%attr(640,root,http) %{htmldir}/horde/imp/config/.htaccess
+%attr(750,root,http) %dir %{hordedir}/imp/config
+%attr(640,root,http) %{hordedir}/imp/config/*.dist
+%attr(640,root,http) %{hordedir}/imp/config/.htaccess
 %attr(640,root,http) %config(noreplace) %{apachedir}/imp.conf
-%attr(640,root,http) %config(noreplace) %{htmldir}/horde/imp/config/*.php
-%attr(640,root,http) %config(noreplace) %{htmldir}/horde/imp/config/*.txt
+%attr(640,root,http) %config(noreplace) %{hordedir}/imp/config/*.php
+%attr(640,root,http) %config(noreplace) %{hordedir}/imp/config/*.txt
 %attr(755,root,root) %config(noreplace) /etc/cron.daily/imp-cleanup
 %{apachedir}/imp
