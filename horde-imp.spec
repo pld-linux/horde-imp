@@ -37,7 +37,7 @@ provides webmail access to IMAP and POP3 accounts.
 
 The Horde Project writes web applications in PHP and releases them
 under the GNU Public License. For more information (including help
-with IMP) please visit http://www.horde.org/.
+with IMP) please visit http://www.horde.org/ .
 
 %description -l es
 Programa de correo vía Internet basado en IMAP.
@@ -48,7 +48,7 @@ Daje dostêp do poczty poprzez IMAP oraz POP3.
 
 Projekt Horde tworzy aplikacje w PHP i dostarcza je na licencji GNU
 Public License. Je¿eli chcesz siê dowiedzieæ czego¶ wiêcej (tak¿e help
-do IMP-a) zajrzyj na stronê http://www.horde.org/.
+do IMP-a) zajrzyj na stronê http://www.horde.org/ .
 
 %description -l pt_BR
 Programa de Mail via Web baseado no IMAP.
