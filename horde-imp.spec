@@ -17,14 +17,14 @@ Source4:	%{name}-ImpLibVersion.def
 Source5:	%{name}.conf
 Patch0:		%{name}-cnc.patch
 URL:		http://www.horde.org/imp/
-Requires:	horde = 1.2.3 horde-phplib-storage mod_php3-imap >= 3.0.16
+Requires:	horde = 1.2.4 horde-phplib-storage php-imap >= 3.0.16
 Prereq:		perl webserver
 BuildArch:	noarch
 Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		apachedir	/etc/httpd
-%define		apacheuser	nobody
-%define		apachegroup	nobody
+%define		apacheuser	http
+%define		apachegroup	http
 %define		contentdir	/home/httpd
 
 %description
