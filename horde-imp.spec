@@ -14,7 +14,7 @@ Source2:	%{name}-pgsql_create.sql
 Source3:	%{name}-pgsql_cuser.sh
 Source4:	%{name}-menu.txt
 Source5:	%{name}-ImpLibVersion.def
-#Patch0:		%{name}-path.patch
+Patch0:		%{name}-path.patch
 URL:		http://www.horde.org/imp/
 PreReq:		apache
 Requires(post):	grep
@@ -51,7 +51,7 @@ Programa de Mail via Web baseado no IMAP.
 
 %prep
 %setup -q -n %{name}-h3-%{version}
-#%patch0 -p1
+%patch0 -p1
 
 %install
 rm -rf $RPM_BUILD_ROOT
