@@ -4,24 +4,23 @@ Summary(es):	Programa de correo vía Internet basado en IMAP
 Summary(pl):	Program do obs³ugi poczty przez WWW korzystaj±cy z IMAP-a
 Summary(pt_BR):	Programa de Mail via Web
 Name:		imp
-Version:	3.2.6
-Release:	1
+Version:	4.0
+Release:	0.1
 License:	GPL v2
 Group:		Applications/Mail
-Source0:	ftp://ftp.horde.org/pub/imp/tarballs/%{name}-%{version}.tar.gz
-# Source0-md5:	0a12763bef44a1928f59cc72da7d854d
+Source0:	ftp://ftp.horde.org/pub/imp/%{name}-h3-%{version}.tar.gz
+# Source0-md5:  41b7888089f98e06da6bb5f92ad1e8e7
 Source1:	%{name}.conf
 Source2:	%{name}-pgsql_create.sql
 Source3:	%{name}-pgsql_cuser.sh
 Source4:	%{name}-menu.txt
 Source5:	%{name}-ImpLibVersion.def
-Patch0:		%{name}-path.patch
+#Patch0:		%{name}-path.patch
 URL:		http://www.horde.org/imp/
 BuildRequires:	rpm-php-pearprov >= 4.0.2-98
 PreReq:		apache
 Requires(post):	grep
-Requires:	crondaemon
-Requires:	horde >= 2.0
+Requires:	horde >= 3.0
 Requires:	php-imap
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -53,17 +52,16 @@ do IMP-a) zajrzyj na stronê http://www.horde.org/ .
 Programa de Mail via Web baseado no IMAP.
 
 %prep
-%setup -q
-%patch0 -p1
+%setup -q -n %{name}-h3-%{version}
+#%patch0 -p1
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{apachedir},/etc/cron.daily,%{confdir}/imp} \
-	$RPM_BUILD_ROOT%{hordedir}/imp/{graphics,lib,locale,scripts,templates}
+	$RPM_BUILD_ROOT%{hordedir}/imp/{lib,locale,scripts,templates}
 
 cp -pR	*.php			$RPM_BUILD_ROOT%{hordedir}/imp
 cp -pR	config/*.dist		$RPM_BUILD_ROOT%{confdir}/imp
-cp -pR	graphics/*		$RPM_BUILD_ROOT%{hordedir}/imp/graphics
 cp -pR	lib/*			$RPM_BUILD_ROOT%{hordedir}/imp/lib
 cp -pR	locale/*		$RPM_BUILD_ROOT%{hordedir}/imp/locale
 cp -pR	scripts/*.php		$RPM_BUILD_ROOT%{hordedir}/imp/scripts
@@ -74,7 +72,6 @@ cp -p	locale/.htaccess	$RPM_BUILD_ROOT%{hordedir}/imp/locale
 cp -p	scripts/.htaccess	$RPM_BUILD_ROOT%{hordedir}/imp/scripts
 cp -p	templates/.htaccess	$RPM_BUILD_ROOT%{hordedir}/imp/templates
 
-install scripts/imp-cleanup.cron $RPM_BUILD_ROOT/etc/cron.daily/imp-cleanup
 ln -sf	%{confdir}/%{name} $RPM_BUILD_ROOT%{hordedir}/%{name}/config
 
 install %{SOURCE1} $RPM_BUILD_ROOT%{apachedir}
@@ -123,10 +120,9 @@ done
 
 %files
 %defattr(644,root,root,755)
-%doc README docs/* scripts/*.reg scripts/*.pl
+%doc README docs/* scripts/*.reg
 %dir %{hordedir}/%{name}
 %attr(640,root,http) %{hordedir}/%{name}/*.php
-%attr(750,root,http) %{hordedir}/%{name}/graphics
 %attr(750,root,http) %{hordedir}/%{name}/lib
 %attr(750,root,http) %{hordedir}/%{name}/locale
 %attr(750,root,http) %{hordedir}/%{name}/scripts
@@ -139,4 +135,3 @@ done
 %attr(640,root,http) %config(noreplace) %{apachedir}/%{name}.conf
 %attr(640,root,http) %config(noreplace) %{confdir}/%{name}/*.php
 %attr(640,root,http) %config(noreplace) %{confdir}/%{name}/*.txt
-%attr(755,root,root) %config(noreplace) /etc/cron.daily/%{name}-cleanup
