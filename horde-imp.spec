@@ -48,7 +48,7 @@ Daje dostêp do poczty poprzez IMAP oraz POP3.
 
 Projekt Horde tworzy aplikacje w PHP i dostarcza je na licencji GNU
 Public License. Je¿eli chcesz siê dowiedzieæ czego¶ wiêcej (tak¿e help
-do IMP'a) zajrzyj na stronê http://www.horde.org
+do IMP-a) zajrzyj na stronê http://www.horde.org/.
 
 %description -l pt_BR
 Programa de Mail via Web baseado no IMAP.
@@ -99,7 +99,6 @@ if [ -f /var/lock/subsys/httpd ]; then
 else
 	echo "Run \"/etc/rc.d/init.d/httpd start\" to start http daemon."
 fi
-
 
 %postun
 echo "Changing apache configuration"
