@@ -1,17 +1,17 @@
 %include	/usr/lib/rpm/macros.php
 %define		_RC	RC2
-%define		_rel	1.1
+%define		_rel	0.1
 Summary:	Web Based IMAP Mail Program
 Summary(es):	Programa de correo vía Internet basado en IMAP
 Summary(pl):	Program do obs³ugi poczty przez www korzystaj±cy z IMAP-a
 Summary(pt_BR):	Programa de Mail via Web
 Name:		imp
-Version:	3.1
-Release:	%{_RC}.%{_rel}
+Version:	3.2.1
+Release:	%{_rel}
 License:	GPL v2
 Group:		Applications/Mail
-Source0:	ftp://ftp.horde.org/pub/imp/tarballs/%{name}-%{version}-%{_RC}.tar.gz
-# Source0-md5:	9ed5ba6a0cf7e8959201bc2cb0e0c2d1
+Source0:	ftp://ftp.horde.org/pub/imp/tarballs/%{name}-%{version}.tar.gz
+# Source0-md5:	0ab8edfcd1439e52b0f29e84fef0cf54
 Source1:	%{name}.conf
 Source2:	%{name}-pgsql_create.sql
 Source3:	%{name}-pgsql_cuser.sh
