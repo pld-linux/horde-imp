@@ -135,6 +135,6 @@ fi
 %attr(750,root,http) %{contentdir}/html/horde/imp/templates
 %attr(750,root,http) %dir %{contentdir}/html/horde/imp/config
 %attr(750,root,http) %{contentdir}/html/horde/imp/config/*.dist
-%attr(750,root,http) %{contentdir}/html/horde/imp/config/*.htaccess
+%attr(750,root,http) %{contentdir}/html/horde/imp/config/.htaccess
 %attr(750,root,http) %config(noreplace) %{apachedir}/imp.conf
 %attr(750,root,http) %config(noreplace) %{contentdir}/html/horde/imp/config/*.php
