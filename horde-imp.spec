@@ -1,20 +1,14 @@
-%define name imp
-%define version 4.0.2
-%define pre rc1
-%define release 0.1
-%define fname %{name}-h3-%{version}-%pre
-
 Summary:	Web Based IMAP Mail Program
 Summary(es):	Programa de correo vía Internet basado en IMAP
 Summary(pl):	Program do obs³ugi poczty przez WWW korzystaj±cy z IMAP-a
 Summary(pt_BR):	Programa de Mail via Web
-Name:		%{name}
-Version:	%{version}
-Release:	%{release}
+Name:		imp
+Version:	4.0.1
+Release:	0.6
 License:	GPL v2
 Group:		Applications/Mail
-Source0:	ftp://ftp.horde.org/pub/imp/%{fname}.tar.gz
-# Source0-md5:	7dd6427b0ca4faf1a4410c4a855f007c
+Source0:	ftp://ftp.horde.org/pub/imp/%{name}-h3-%{version}.tar.gz
+# Source0-md5:	38ccfae6ecbe6acf4b082e3c6a7493e8
 Source1:	%{name}.conf
 Source2:	%{name}-pgsql_create.sql
 Source3:	%{name}-pgsql_cuser.sh
@@ -30,7 +24,7 @@ Requires:	horde >= 3.0
 Requires:	php-imap
 Requires:	php-ctype
 BuildArch:	noarch
-BuildRoot:	%{tmpdir}/%{fname}-root-%(id -u -n)
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		apachedir	/etc/httpd
 %define		hordedir	/usr/share/horde
@@ -59,7 +53,7 @@ do IMP-a) zajrzyj na stronê http://www.horde.org/ .
 Programa de Mail via Web baseado no IMAP.
 
 %prep
-%setup -q -n %{fname}
+%setup -q -n %{name}-h3-%{version}
 %patch0 -p1
 %patch1 -p1
 
