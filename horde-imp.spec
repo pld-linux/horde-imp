@@ -1,8 +1,9 @@
 Summary:	Web Based IMAP Mail Program 
+Summary(pl):	Program do obs³ugi poczty przez www korzystaj±cy z IMAP'a
 Summary(es):	Programa de correo vía Internet basado en IMAP
 Summary(pt_BR): Programa de Mail via Web
 Name:		imp
-Version:	2.2.4
+Version:	2.3.6
 Release:	1
 License:	GPL
 Group:		Applications/Mail
@@ -17,14 +18,15 @@ Source4:	%{name}-ImpLibVersion.def
 Source5:	%{name}.conf
 Patch0:		%{name}-cnc.patch
 URL:		http://www.horde.org/imp/
-Requires:	horde = 1.2.4 horde-phplib-storage php-imap >= 3.0.16
-Prereq:		perl webserver
+Requires:	horde = 1.2.6 
+Requires:	horde-phplib-storage
+Requires:	php-imap
+Prereq:		perl 
+Prereq:		webserver
 BuildArch:	noarch
 Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		apachedir	/etc/httpd
-%define		apacheuser	http
-%define		apachegroup	http
 %define		contentdir	/home/httpd
 
 %description
@@ -34,6 +36,14 @@ provides webmail access to IMAP and POP3 accounts.
 The Horde Project writes web applications in PHP and releases them
 under the GNU Public License. For more information (including help
 with IMP) please visit http://www.horde.org/.
+
+%description -l pl
+IMP jest programem do obs³ugi poczty przez www, bazowanym na Horde.
+Daje dostêp do poczty poprzez IMAP oraz POP3.
+
+Projekt Horde tworzy aplikacje w PHP i dostarcza je na licencji GNU
+Public License. Je¿eli chcesz siê dowiedzieæ czego¶ wiêcej (tak¿e
+help do IMP'a) zajrzyj na stronê http://www.horde.org
 
 %description -l pt_BR
 Programa de Mail via Web baseado no IMAP
@@ -77,21 +87,30 @@ rm -rf %{buildroot}
 
 %post
 grep -i 'Include.*imp.conf$' %{apachedir}/conf/httpd.conf >/dev/null 2>&1
+echo "Changing apache configuration"
 if [ $? -eq 0 ]; then
 	perl -pi -e 's/^#+// if (/Include.*imp.conf$/i);' %{apachedir}/conf/httpd.conf
 else
 	echo "Include %{apachedir}/conf/imp.conf" >>%{apachedir}/conf/httpd.conf
 fi
-#/sbin/service httpd restart
-killall -HUP httpd > /dev/null 2>&1 ||:
-sleep 1  # settling time vs. installing multiple RPMs at a time
+
+if [ -f /var/lock/subsys/httpd ]; then
+	echo "Restarting httpd daemon"
+	/etc/rc.d/init.d/httpd restart 1>&2
+else
+	echo "Run \"/etc/rc.d/init.d/httpd start\" to start apache http daemon."
+fi
 
 
 %postun
+echo "Changing apache configuration"
 perl -pi -e 's/^/#/ if (/^Include.*imp.conf$/i);' %{apachedir}/conf/httpd.conf
-#/sbin/service httpd restart
-killall -HUP httpd > /dev/null 2>&1 ||:
-sleep 1  # settling time vs. installing multiple RPMs at a time
+if [ -f /var/lock/subsys/httpd ]; then
+	echo "Restarting httpd daemon"
+	/etc/rc.d/init.d/httpd restart 1>&2
+else
+	echo "Run \"/etc/rc.d/init.d/httpd start\" to start apache http daemon."
+fi
 
 %files
 %defattr(644,root,root,755)
@@ -103,8 +122,8 @@ sleep 1  # settling time vs. installing multiple RPMs at a time
 %dir %{contentdir}/html/horde/imp
 
 # Include top-level files by hand
-%{contentdir}/html/horde/imp/*.css
-%{contentdir}/html/horde/imp/*.php3
+#%{contentdir}/html/horde/imp/*.css
+%{contentdir}/html/horde/imp/*.php
 
 # Include these dirs so that all files _will_ get sucked in
 %{contentdir}/html/horde/imp/graphics
@@ -122,9 +141,9 @@ sleep 1  # settling time vs. installing multiple RPMs at a time
 
 # Mark configuration files with %config and use secure permissions
 # (note that .dist files are considered software; don't mark %config)
-%attr(750,root,%{apachegroup}) %dir %{contentdir}/html/horde/imp/config
+%attr(750,root,http) %dir %{contentdir}/html/horde/imp/config
 %{contentdir}/html/horde/imp/config/*.dist
 %defattr(-,root,root)
 %config %{contentdir}/html/horde/imp/config/*.html
-%config %{contentdir}/html/horde/imp/config/*.php3
 %config %{contentdir}/html/horde/imp/config/*.txt
+%config %{contentdir}/html/horde/imp/config/*.dt
