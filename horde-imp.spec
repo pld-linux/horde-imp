@@ -2,7 +2,7 @@
 %define		_rel	0.1
 Summary:	Web Based IMAP Mail Program
 Summary(es):	Programa de correo vía Internet basado en IMAP
-Summary(pl):	Program do obs³ugi poczty przez www korzystaj±cy z IMAP-a
+Summary(pl):	Program do obs³ugi poczty przez WWW korzystaj±cy z IMAP-a
 Summary(pt_BR):	Programa de Mail via Web
 Name:		imp
 Version:	3.2.6
@@ -42,7 +42,7 @@ with IMP) please visit http://www.horde.org/ .
 Programa de correo vía Internet basado en IMAP.
 
 %description -l pl
-IMP jest programem do obs³ugi poczty przez www, bazowanym na Horde.
+IMP jest programem do obs³ugi poczty przez WWW, bazowanym na Horde.
 Daje dostêp do poczty poprzez IMAP oraz POP3.
 
 Projekt Horde tworzy aplikacje w PHP i dostarcza je na licencji GNU
