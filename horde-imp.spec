@@ -153,6 +153,7 @@ fi
 %files
 %defattr(644,root,root,755)
 %doc README docs/* scripts
+%dir %{_sysconfdir}
 %attr(750,root,http) %dir %{_sysconfdir}/%{name}
 %attr(640,root,root) %config(noreplace) %{_sysconfdir}/apache-%{name}.conf
 %attr(660,root,http) %config(noreplace) %{_sysconfdir}/%{name}/conf.php
