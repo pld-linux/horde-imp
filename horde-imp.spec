@@ -5,7 +5,7 @@ Summary(pl):	Program do obs³ugi poczty przez WWW korzystaj±cy z IMAP-a
 Summary(pt_BR):	Programa de Mail via Web
 Name:		imp
 Version:	4.0.3
-Release:	1
+Release:	2
 License:	GPL v2
 Group:		Applications/Mail
 Source0:	ftp://ftp.horde.org/pub/imp/%{name}-h3-%{version}.tar.gz
@@ -15,7 +15,6 @@ Source2:	%{name}-pgsql_create.sql
 Source3:	%{name}-pgsql_cuser.sh
 Source4:	%{name}-menu.txt
 Source5:	%{name}-ImpLibVersion.def
-Source6:	%{name}-trans.mo
 Patch0:		%{name}-path.patch
 URL:		http://www.horde.org/imp/
 Requires:	apache >= 1.3.33-2
@@ -89,7 +88,6 @@ ln -s %{_sysconfdir}/%{name} 	$RPM_BUILD_ROOT%{_appdir}/config
 ln -s %{_defaultdocdir}/%{name}-%{version}/CREDITS $RPM_BUILD_ROOT%{_appdir}/docs
 
 install %{SOURCE1} 		$RPM_BUILD_ROOT%{_sysconfdir}/apache-%{name}.conf
-install %{SOURCE6}		$RPM_BUILD_ROOT%{_appdir}/locale/pl_PL/LC_MESSAGES/%{name}.mo
 
 %clean
 rm -rf $RPM_BUILD_ROOT
