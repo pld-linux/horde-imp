@@ -7,7 +7,7 @@ Name:		imp
 Version:	4.0.3
 Release:	2
 License:	GPL v2
-Group:		Applications/Mail
+Group:		Applications/WWW
 Source0:	ftp://ftp.horde.org/pub/imp/%{name}-h3-%{version}.tar.gz
 # Source0-md5:	42e7232663f65c2edf5e5bb8c85e84f9
 Source1:	%{name}.conf
