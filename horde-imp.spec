@@ -1,3 +1,5 @@
+# TODO
+# - imap login broken, see http://bugs.horde.org/ticket/?id=1937
 %include	/usr/lib/rpm/macros.php
 Summary:	Web Based IMAP Mail Program
 Summary(es):	Programa de correo vía Internet basado en IMAP
@@ -5,7 +7,7 @@ Summary(pl):	Program do obs³ugi poczty przez WWW korzystaj±cy z IMAP-a
 Summary(pt_BR):	Programa de Mail via Web
 Name:		imp
 Version:	4.0.3
-Release:	2
+Release:	0.0.1
 License:	GPL v2
 Group:		Applications/WWW
 Source0:	ftp://ftp.horde.org/pub/imp/%{name}-h3-%{version}.tar.gz
@@ -76,6 +78,7 @@ done
 echo "<?php ?>" > 		$RPM_BUILD_ROOT%{_sysconfdir}/%{name}/conf.php
 sed -e '
 	s,/somewhere/ca-bundle.crt,/usr/share/ssl/ca-bundle.crt,
+	s,/usr/local/bin,%{_bindir},
 ' < config/conf.xml > $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/conf.xml
 > $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/conf.php.bak
 
