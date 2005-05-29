@@ -1,17 +1,25 @@
 # TODO
 # - imap login broken, see http://bugs.horde.org/ticket/?id=1937
+
+%define	_snap	2005-05-21
+
 %include	/usr/lib/rpm/macros.php
 Summary:	Web Based IMAP Mail Program
 Summary(es):	Programa de correo vía Internet basado en IMAP
 Summary(pl):	Program do obs³ugi poczty przez WWW korzystaj±cy z IMAP-a
 Summary(pt_BR):	Programa de Mail via Web
 Name:		imp
-Version:	4.0.3
-Release:	0.0.1
+Version:	4.0.4
+Release:	0.%(echo %{_snap} | tr -d -)
 License:	GPL v2
 Group:		Applications/WWW
+%if 0%{?_snap}
+Source0:	http://ftp.horde.org/pub/snaps/%{_snap}/imp-FRAMEWORK_3-%{_snap}.tar.gz
+# Source0-md5:	15e787abce02eaafeb4fab78aa653e02
+%else
 Source0:	ftp://ftp.horde.org/pub/imp/%{name}-h3-%{version}.tar.gz
 # Source0-md5:	42e7232663f65c2edf5e5bb8c85e84f9
+%endif
 Source1:	%{name}.conf
 Source2:	%{name}-pgsql_create.sql
 Source3:	%{name}-pgsql_cuser.sh
@@ -60,7 +68,7 @@ do IMP-a) zajrzyj na stronê <http://www.horde.org/>.
 Programa de Mail via Web baseado no IMAP.
 
 %prep
-%setup -q -n %{name}-h3-%{version}
+%setup -q -n %{?_snap:imp-FRAMEWORK_3}%{!?_snap:%{name}-h3-%{version}}
 %patch0 -p1
 
 # considered harmful (horde/docs/SECURITY)
