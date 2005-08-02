@@ -52,9 +52,9 @@ Programa de correo vía Internet basado en IMAP.
 IMP jest programem do obs³ugi poczty przez WWW, bazowanym na Horde.
 Daje dostêp do poczty poprzez IMAP oraz POP3.
 
-Projekt Horde tworzy aplikacje w PHP i dostarcza je na licencji GNU
-Public License. Je¿eli chcesz siê dowiedzieæ czego¶ wiêcej (tak¿e help
-do IMP-a) zajrzyj na stronê <http://www.horde.org/>.
+Projekt Horde tworzy aplikacje WWW w PHP i wydaje je na licencji GNU
+General Public License. Wiêcej informacji (w³±cznie z pomoc± dla
+IMP-a) mo¿na znale¼æ na stronie <http://www.horde.org/>.
 
 %description -l pt_BR
 Programa de Mail via Web baseado no IMAP.
