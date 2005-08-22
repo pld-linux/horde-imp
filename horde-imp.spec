@@ -13,7 +13,7 @@ License:	GPL v2
 Group:		Applications/WWW
 #Source0:	ftp://ftp.horde.org/pub/imp/%{name}-h3-%{version}.tar.gz
 Source0:	http://ftp.horde.org/pub/snaps/%{_snap}/imp-FRAMEWORK_3-%{_snap}.tar.gz
-# Source0-md5:	c222e646c31afe0f3d7934880aa1aa0c
+# Source0-md5:	de81a870fda572fe1d4d81db8c31f41f
 Source1:	%{name}.conf
 Source2:	%{name}-pgsql_create.sql
 Source3:	%{name}-pgsql_cuser.sh
