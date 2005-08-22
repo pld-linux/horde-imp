@@ -11,8 +11,9 @@ Version:	4.0.4
 Release:	0.%(echo %{_snap} | tr -d -).1
 License:	GPL v2
 Group:		Applications/WWW
+#Source0:	ftp://ftp.horde.org/pub/imp/%{name}-h3-%{version}.tar.gz
 Source0:	http://ftp.horde.org/pub/snaps/%{_snap}/imp-FRAMEWORK_3-%{_snap}.tar.gz
-# Source0-md5:	de81a870fda572fe1d4d81db8c31f41f
+# Source0-md5:	c222e646c31afe0f3d7934880aa1aa0c
 Source1:	%{name}.conf
 Source2:	%{name}-pgsql_create.sql
 Source3:	%{name}-pgsql_cuser.sh
@@ -68,7 +69,7 @@ rm -f test.php
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{/etc/cron.daily,%{_sysconfdir}/imp} \
+install -d $RPM_BUILD_ROOT{/etc/cron.daily,%{_sysconfdir}/%{name}} \
 	$RPM_BUILD_ROOT%{_appdir}/{docs,lib,locale,scripts,templates,themes}
 
 cp -pR	*.php			$RPM_BUILD_ROOT%{_appdir}
@@ -121,9 +122,9 @@ for i in conf.php filter.txt header.txt html.php menu.php mime_drivers.php motd.
 done
 
 %triggerpostun -- imp <= 4.0.2-1
-if [ -f %{_apache2dir}/imp.conf.rpmsave ]; then
+if [ -f /etc/httpd/imp.conf.rpmsave ]; then
 	cp -f %{_sysconfdir}/apache-%{name}.conf{,.rpmnew}
-	mv -f %{_apache2dir}/imp.conf.rpmsave %{_sysconfdir}/apache-%{name}.conf
+	mv -f /etc/httpd/imp.conf.rpmsave %{_sysconfdir}/apache-%{name}.conf
 fi
 
 if [ -f /var/lock/subsys/httpd ]; then
