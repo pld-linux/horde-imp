@@ -1,7 +1,5 @@
-# TODO
-# - imap login broken, see http://bugs.horde.org/ticket/?id=1937
 
-%define	_snap	2005-05-21
+%define	_snap	2005-08-22
 
 %include	/usr/lib/rpm/macros.php
 Summary:	Web Based IMAP Mail Program
@@ -13,13 +11,8 @@ Version:	4.0.4
 Release:	0.%(echo %{_snap} | tr -d -).1
 License:	GPL v2
 Group:		Applications/WWW
-%if 0%{?_snap}
 Source0:	http://ftp.horde.org/pub/snaps/%{_snap}/imp-FRAMEWORK_3-%{_snap}.tar.gz
-# Source0-md5:	15e787abce02eaafeb4fab78aa653e02
-%else
-Source0:	ftp://ftp.horde.org/pub/imp/%{name}-h3-%{version}.tar.gz
-# Source0-md5:	42e7232663f65c2edf5e5bb8c85e84f9
-%endif
+# Source0-md5:	de81a870fda572fe1d4d81db8c31f41f
 Source1:	%{name}.conf
 Source2:	%{name}-pgsql_create.sql
 Source3:	%{name}-pgsql_cuser.sh
