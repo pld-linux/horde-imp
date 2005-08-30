@@ -1,5 +1,6 @@
 
-%define	_snap	2005-08-22
+#%define	_snap	2005-08-22
+%define		_rc	rc1
 
 %include	/usr/lib/rpm/macros.php
 Summary:	Web Based IMAP Mail Program
@@ -8,12 +9,13 @@ Summary(pl):	Program do obs³ugi poczty przez WWW korzystaj±cy z IMAP-a
 Summary(pt_BR):	Programa de Mail via Web
 Name:		imp
 Version:	4.0.4
-Release:	0.%(echo %{_snap} | tr -d -).1
+#Release:	0.%(echo %{_snap} | tr -d -).1
+Release:	0.%{_rc}.1
 License:	GPL v2
 Group:		Applications/WWW
-#Source0:	ftp://ftp.horde.org/pub/imp/%{name}-h3-%{version}.tar.gz
-Source0:	http://ftp.horde.org/pub/snaps/%{_snap}/imp-FRAMEWORK_3-%{_snap}.tar.gz
-# Source0-md5:	de81a870fda572fe1d4d81db8c31f41f
+Source0:	ftp://ftp.horde.org/pub/imp/%{name}-h3-%{version}-%{_rc}.tar.gz
+# Source0-md5:	59b197d181545a343010612687efdd25
+#Source0:	http://ftp.horde.org/pub/snaps/%{_snap}/imp-FRAMEWORK_3-%{_snap}.tar.gz
 Source1:	%{name}.conf
 Source2:	%{name}-pgsql_create.sql
 Source3:	%{name}-pgsql_cuser.sh
@@ -61,7 +63,8 @@ do IMP-a) zajrzyj na stronê <http://www.horde.org/>.
 Programa de Mail via Web baseado no IMAP.
 
 %prep
-%setup -q -n %{?_snap:imp-FRAMEWORK_3}%{!?_snap:%{name}-h3-%{version}}
+#%setup -q -n %{?_snap:imp-FRAMEWORK_3}%{!?_snap:%{name}-h3-%{version}}
+%setup -q -n %{name}-h3-%{version}-%{_rc}
 %patch0 -p1
 
 # considered harmful (horde/docs/SECURITY)
