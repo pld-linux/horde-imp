@@ -1,17 +1,20 @@
-# TODO
-# - imap login broken, see http://bugs.horde.org/ticket/?id=1937
+
+#%define	_snap	2005-08-22
+%define		_rc	rc1
+
 %include	/usr/lib/rpm/macros.php
 Summary:	Web Based IMAP Mail Program
 Summary(es):	Programa de correo vía Internet basado en IMAP
 Summary(pl):	Program do obs³ugi poczty przez WWW korzystaj±cy z IMAP-a
 Summary(pt_BR):	Programa de Mail via Web
 Name:		imp
-Version:	4.0.3
-Release:	0.0.1
+Version:	4.0.4
+Release:	%{?_rc:1.%{_rc}.}%{?_snap:0.%(echo %{_snap} | tr -d -).}%{_rel}
 License:	GPL v2
 Group:		Applications/WWW
-Source0:	ftp://ftp.horde.org/pub/imp/%{name}-h3-%{version}.tar.gz
-# Source0-md5:	42e7232663f65c2edf5e5bb8c85e84f9
+#Source0:	http://ftp.horde.org/pub/snaps/%{_snap}/imp-FRAMEWORK_3-%{_snap}.tar.gz
+Source0:	ftp://ftp.horde.org/pub/imp/%{name}-h3-%{version}-%{_rc}.tar.gz
+# Source0-md5:	59b197d181545a343010612687efdd25
 Source1:	%{name}.conf
 Source2:	%{name}-pgsql_create.sql
 Source3:	%{name}-pgsql_cuser.sh
@@ -19,6 +22,7 @@ Source4:	%{name}-menu.txt
 Source5:	%{name}-ImpLibVersion.def
 Patch0:		%{name}-path.patch
 URL:		http://www.horde.org/imp/
+BuildRequires:	rpmbuild(macros) >= 1.226
 Requires:	apache >= 1.3.33-2
 Requires:	apache(mod_access)
 Requires:	horde >= 3.0
@@ -34,8 +38,6 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define		hordedir	/usr/share/horde
 %define		_sysconfdir		/etc/horde.org
 %define		_appdir		%{hordedir}/%{name}
-%define		_apache1dir	/etc/apache
-%define		_apache2dir	/etc/httpd
 
 %description
 IMP is the Internet Messaging Program, one of the Horde components. It
@@ -60,7 +62,8 @@ IMP-a) mo¿na znale¼æ na stronie <http://www.horde.org/>.
 Programa de Mail via Web baseado no IMAP.
 
 %prep
-%setup -q -n %{name}-h3-%{version}
+#%setup -q -n %{?_snap:imp-FRAMEWORK_3}%{!?_snap:%{name}-h3-%{version}}
+%setup -q -n %{name}-h3-%{version}-%{_rc}
 %patch0 -p1
 
 # considered harmful (horde/docs/SECURITY)
@@ -68,7 +71,7 @@ rm -f test.php
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{/etc/cron.daily,%{_sysconfdir}/imp} \
+install -d $RPM_BUILD_ROOT{/etc/cron.daily,%{_sysconfdir}/%{name}} \
 	$RPM_BUILD_ROOT%{_appdir}/{docs,lib,locale,scripts,templates,themes}
 
 cp -pR	*.php			$RPM_BUILD_ROOT%{_appdir}
@@ -100,38 +103,17 @@ if [ ! -f %{_sysconfdir}/%{name}/conf.php.bak ]; then
 	install /dev/null -o root -g http -m660 %{_sysconfdir}/%{name}/conf.php.bak
 fi
 
-# apache1
-if [ -d %{_apache1dir}/conf.d ]; then
-	ln -sf %{_sysconfdir}/apache-%{name}.conf %{_apache1dir}/conf.d/99_%{name}.conf
-	if [ -f /var/lock/subsys/apache ]; then
-		/etc/rc.d/init.d/apache restart 1>&2
-	fi
-fi
-# apache2
-if [ -d %{_apache2dir}/httpd.conf ]; then
-	ln -sf %{_sysconfdir}/apache-%{name}.conf %{_apache2dir}/httpd.conf/99_%{name}.conf
-	if [ -f /var/lock/subsys/httpd ]; then
-		/etc/rc.d/init.d/httpd restart 1>&2
-	fi
-fi
+%triggerin -- apache1 >= 1.3.33-2
+%apache_config_install -v 1 -c %{_sysconfdir}/apache-%{name}.conf
 
-%postun
-if [ "$1" = "0" ]; then
-	# apache1
-	if [ -d %{_apache1dir}/conf.d ]; then
-		rm -f %{_apache1dir}/conf.d/99_%{name}.conf
-		if [ -f /var/lock/subsys/apache ]; then
-			/etc/rc.d/init.d/apache restart 1>&2
-		fi
-	fi
-	# apache2
-	if [ -d %{_apache2dir}/httpd.conf ]; then
-		rm -f %{_apache2dir}/httpd.conf/99_%{name}.conf
-		if [ -f /var/lock/subsys/httpd ]; then
-			/etc/rc.d/init.d/httpd restart 1>&2
-		fi
-	fi
-fi
+%triggerun -- apache1 >= 1.3.33-2
+%apache_config_uninstall -v 1
+
+%triggerin -- apache >= 2.0.0
+%apache_config_install -v 2 -c %{_sysconfdir}/apache-%{name}.conf
+
+%triggerun -- apache >= 2.0.0
+%apache_config_uninstall -v 2
 
 %triggerpostun -- imp <= 3.2.6-0.1
 for i in conf.php filter.txt header.txt html.php menu.php mime_drivers.php motd.php prefs.php servers.php trailer.txt; do
@@ -142,9 +124,9 @@ for i in conf.php filter.txt header.txt html.php menu.php mime_drivers.php motd.
 done
 
 %triggerpostun -- imp <= 4.0.2-1
-if [ -f %{_apache2dir}/imp.conf.rpmsave ]; then
+if [ -f /etc/httpd/imp.conf.rpmsave ]; then
 	cp -f %{_sysconfdir}/apache-%{name}.conf{,.rpmnew}
-	mv -f %{_apache2dir}/imp.conf.rpmsave %{_sysconfdir}/apache-%{name}.conf
+	mv -f /etc/httpd/imp.conf.rpmsave %{_sysconfdir}/apache-%{name}.conf
 fi
 
 if [ -f /var/lock/subsys/httpd ]; then
