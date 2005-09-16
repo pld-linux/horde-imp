@@ -16,13 +16,10 @@ Group:		Applications/WWW
 Source0:	ftp://ftp.horde.org/pub/imp/%{name}-h3-%{version}-%{_rc}.tar.gz
 # Source0-md5:	59b197d181545a343010612687efdd25
 Source1:	%{name}.conf
-Source2:	%{name}-pgsql_create.sql
-Source3:	%{name}-pgsql_cuser.sh
-Source4:	%{name}-menu.txt
-Source5:	%{name}-ImpLibVersion.def
 Patch0:		%{name}-path.patch
 URL:		http://www.horde.org/imp/
 BuildRequires:	rpmbuild(macros) >= 1.226
+BuildRequires:	tar >= 1:1.15.1
 Requires:	apache >= 1.3.33-2
 Requires:	apache(mod_access)
 Requires:	horde >= 3.0
@@ -62,8 +59,8 @@ IMP-a) mo¿na znale¼æ na stronie <http://www.horde.org/>.
 Programa de Mail via Web baseado no IMAP.
 
 %prep
-#%setup -q -n %{?_snap:imp-FRAMEWORK_3}%{!?_snap:%{name}-h3-%{version}}
-%setup -q -n %{name}-h3-%{version}-%{_rc}
+%setup -q -c -T -n %{?_snap:%{name}-%{_snap}}%{!?_snap:%{name}-%{version}%{?_rc:-%{_rc}}}
+tar zxf %{SOURCE0} --strip-components=1
 %patch0 -p1
 
 # considered harmful (horde/docs/SECURITY)
