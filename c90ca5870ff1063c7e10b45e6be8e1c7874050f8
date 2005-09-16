@@ -1,0 +1,4 @@
+- adapterized,
+- changed Group to Applications/Mail,
+- added correct Source url (current avalaible version is 2.3.6).
+- based on Conectiva spec file.
