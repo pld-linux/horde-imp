@@ -8,7 +8,7 @@ Summary:	Web Based IMAP Mail Program
 Summary(es):	Programa de correo vía Internet basado en IMAP
 Summary(pl):	Program do obs³ugi poczty przez WWW korzystaj±cy z IMAP-a
 Summary(pt_BR):	Programa de Mail via Web
-Name:		%{_hordeapp}
+Name:		horde-%{_hordeapp}
 Version:	4.0.4
 Release:	%{?_rc:1.%{_rc}.}%{?_snap:0.%(echo %{_snap} | tr -d -).}%{_rel}
 License:	GPL v2
@@ -27,6 +27,7 @@ Requires:	apache(mod_access)
 Requires:	horde >= 3.0
 Requires:	php-imap
 Requires:	php-ctype
+Obsoletes:	%{_hordeapp}
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
