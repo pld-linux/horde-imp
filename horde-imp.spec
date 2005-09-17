@@ -1,6 +1,6 @@
 
 #%define	_snap	2005-08-22
-%define		_rc	rc1
+%define		_rc	rc2
 
 %include	/usr/lib/rpm/macros.php
 Summary:	Web Based IMAP Mail Program
@@ -14,13 +14,9 @@ Release:	0.%{_rc}.1
 License:	GPL v2
 Group:		Applications/WWW
 Source0:	ftp://ftp.horde.org/pub/imp/%{name}-h3-%{version}-%{_rc}.tar.gz
-# Source0-md5:	59b197d181545a343010612687efdd25
+# Source0-md5:	a573e10c1b53f45802f376826b9d6aaf
 #Source0:	http://ftp.horde.org/pub/snaps/%{_snap}/imp-FRAMEWORK_3-%{_snap}.tar.gz
 Source1:	%{name}.conf
-Source2:	%{name}-pgsql_create.sql
-Source3:	%{name}-pgsql_cuser.sh
-Source4:	%{name}-menu.txt
-Source5:	%{name}-ImpLibVersion.def
 Patch0:		%{name}-path.patch
 URL:		http://www.horde.org/imp/
 BuildRequires:	rpmbuild(macros) >= 1.226
