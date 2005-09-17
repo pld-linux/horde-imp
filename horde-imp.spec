@@ -1,8 +1,8 @@
-%define		_hordeapp	imp
+%define	_hordeapp	imp
 #define	_snap	2005-08-22
-%define		_rc	rc1
-%define		_rel	6
-
+%define	_rc		rc1
+%define	_rel	6.1
+#
 %include	/usr/lib/rpm/macros.php
 Summary:	Web Based IMAP Mail Program
 Summary(es):	Programa de correo vía Internet basado en IMAP
@@ -33,9 +33,9 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define		_noautocompressdoc  CREDITS
 %define		_noautoreq			'pear(Horde.*)' 'pear(Text/Flowed.php)'
 
-%define		hordedir		/usr/share/horde
-%define		_sysconfdir		/etc/horde.org
-%define		_appdir			%{hordedir}/%{_hordeapp}
+%define		hordedir	/usr/share/horde
+%define		_sysconfdir	/etc/horde.org
+%define		_appdir		%{hordedir}/%{_hordeapp}
 
 %description
 IMP is the Internet Messaging Program, one of the Horde components. It
@@ -64,24 +64,26 @@ Programa de Mail via Web baseado no IMAP.
 tar zxf %{SOURCE0} --strip-components=1
 %patch0 -p1
 
+sed -i -e '
+	s,/somewhere/ca-bundle.crt,/usr/share/ssl/ca-bundle.crt,
+	s,/usr/local/bin,%{_bindir},
+' config/conf.xml
+
 # considered harmful (horde/docs/SECURITY)
 rm -f test.php
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{/etc/cron.daily,%{_sysconfdir}/%{_hordeapp}} \
+install -d $RPM_BUILD_ROOT%{_sysconfdir}/%{_hordeapp} \
 	$RPM_BUILD_ROOT%{_appdir}/{docs,lib,locale,scripts,templates,themes}
 
-cp -pR	*.php			$RPM_BUILD_ROOT%{_appdir}
+cp -a *.php			$RPM_BUILD_ROOT%{_appdir}
 for i in config/*.dist; do
-	cp -p $i $RPM_BUILD_ROOT%{_sysconfdir}/%{_hordeapp}/$(basename $i .dist)
+	cp -a $i $RPM_BUILD_ROOT%{_sysconfdir}/%{_hordeapp}/$(basename $i .dist)
 done
-echo "<?php ?>" > 		$RPM_BUILD_ROOT%{_sysconfdir}/%{_hordeapp}/conf.php
-sed -e '
-	s,/somewhere/ca-bundle.crt,/usr/share/ssl/ca-bundle.crt,
-	s,/usr/local/bin,%{_bindir},
-' < config/conf.xml > $RPM_BUILD_ROOT%{_sysconfdir}/%{_hordeapp}/conf.xml
-> $RPM_BUILD_ROOT%{_sysconfdir}/%{_hordeapp}/conf.php.bak
+echo '<?php ?>' >		$RPM_BUILD_ROOT%{_sysconfdir}/%{_hordeapp}/conf.php
+cp -p config/conf.xml	$RPM_BUILD_ROOT%{_sysconfdir}/%{_hordeapp}/conf.xml
+touch					$RPM_BUILD_ROOT%{_sysconfdir}/%{_hordeapp}/conf.php.bak
 
 cp -pR	lib/*			$RPM_BUILD_ROOT%{_appdir}/lib
 cp -pR	locale/*		$RPM_BUILD_ROOT%{_appdir}/locale
@@ -90,7 +92,6 @@ cp -pR	themes/*		$RPM_BUILD_ROOT%{_appdir}/themes
 
 ln -s %{_sysconfdir}/%{_hordeapp} 	$RPM_BUILD_ROOT%{_appdir}/config
 ln -s %{_docdir}/%{name}-%{version}/CREDITS $RPM_BUILD_ROOT%{_appdir}/docs
-
 install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/apache-%{_hordeapp}.conf
 
 %clean
