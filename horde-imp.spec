@@ -23,12 +23,13 @@ URL:		http://www.horde.org/imp/
 BuildRequires:	rpm-php-pearprov >= 4.0.2-98
 BuildRequires:	rpmbuild(macros) >= 1.226
 BuildRequires:	tar >= 1:1.15.1
-Requires:	apache >= 1.3.33-2
 Requires:	apache(mod_access)
 Requires:	horde >= 3.0
-Requires:	php-imap
 Requires:	php-ctype
+Requires:	php-imap
+Requires:	webserver = apache
 Obsoletes:	%{_hordeapp}
+Conflicts:	apache < 1.3.33-2
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -68,8 +69,8 @@ tar zxf %{SOURCE0} --strip-components=1
 %patch0 -p1
 
 sed -i -e '
-	s,/somewhere/ca-bundle.crt,/usr/share/ssl/ca-bundle.crt,
-	s,/usr/local/bin,%{_bindir},
+	s,/somewhere/ca-bundle.crt,/''usr/share/ssl/ca-bundle.crt,
+	s,/''usr/local/bin,%{_bindir},
 ' config/conf.xml
 
 # considered harmful (horde/docs/SECURITY)
