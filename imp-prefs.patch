@@ -1,0 +1,30 @@
+diff -u -r imp-4.0.4.pre/config/conf.xml imp-4.0.4/config/conf.xml
+--- imp-4.0.4.pre/config/conf.xml	2004-12-09 17:33:27.000000000 +0200
++++ imp-4.0.4/config/conf.xml	2005-12-01 00:35:22.000000000 +0200
+@@ -23,7 +23,7 @@
+    connecting to the PGP keyserver. Timeouts are not supported on all
+    systems.">10</configstring>
+    <configstring name="openssl_cafile" required="false" desc="The location of
+-   the root certificates bundle.">/somewhere/ca-bundle.crt</configstring>
++   the root certificates bundle.">/usr/share/ssl/ca-bundle.crt</configstring>
+    <configstring name="openssl_binary" required="false" desc="The location of
+    the OpenSSL binary on your system. This program is REQUIRED to import
+    personal S/MIME certificate information, as there is no native PHP function
+@@ -169,7 +169,7 @@
+    email address for each user (e.g. DSPAM), this setting should be empty and
+    you should look at the _imp_hook_spam_bounce hook instead."/>
+    <configstring name="program" required="false" desc="Should we report them
+-   via an external program? (e.g. /usr/local/bin/spamassassin -r)"/>
++   via an external program? (e.g. /usr/bin/spamassassin -r)"/>
+   </configsection>
+   <configsection name="notspam">
+    <configboolean name="reporting" desc="Should we display a 'report this
+@@ -184,7 +184,7 @@
+    email address for each user (e.g. DSPAM), this setting should be empty and
+    and you should look at the _imp_hook_spam_bounce hook instead."/>
+    <configstring name="program" required="false" desc="Should we report them
+-   via an external program? (e.g. /usr/local/bin/spamassassin -k)"/>
++   via an external program? (e.g. /usr/bin/spamassassin -k)"/>
+   </configsection>
+  </configtab>
+ 

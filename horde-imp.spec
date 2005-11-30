@@ -1,7 +1,7 @@
 %define	_hordeapp	imp
 #define	_snap	2005-08-22
 #define	_rc		rc2
-%define	_rel	1.14
+%define	_rel	1.15
 #
 %include	/usr/lib/rpm/macros.php
 Summary:	Web Based IMAP Mail Program
@@ -19,6 +19,7 @@ Source0:	ftp://ftp.horde.org/pub/imp/%{_hordeapp}-h3-%{version}.tar.gz
 #Source0:	ftp://ftp.horde.org/pub/imp/%{_hordeapp}-h3-%{version}-%{_rc}.tar.gz
 Source1:	%{_hordeapp}.conf
 Patch0:		%{_hordeapp}-path.patch
+Patch1:		%{_hordeapp}-prefs.patch
 URL:		http://www.horde.org/imp/
 BuildRequires:	rpm-php-pearprov >= 4.0.2-98
 BuildRequires:	rpmbuild(macros) >= 1.226
@@ -69,6 +70,7 @@ Programa de Mail via Web baseado no IMAP.
 %setup -qcT -n %{?_snap:%{_hordeapp}-%{_snap}}%{!?_snap:%{_hordeapp}-%{version}%{?_rc:-%{_rc}}}
 tar zxf %{SOURCE0} --strip-components=1
 %patch0 -p1
+%patch1 -p1
 
 rm -f {,*/}.htaccess
 for i in config/*.dist; do
@@ -76,12 +78,6 @@ for i in config/*.dist; do
 done
 # considered harmful (horde/docs/SECURITY)
 rm -f test.php
-
-sed -i -e '
-	s,/somewhere/ca-bundle.crt,/''usr/share/ssl/ca-bundle.crt,
-	s,/''usr/local/bin,%{_bindir},
-' config/conf.xml
-
 
 %install
 rm -rf $RPM_BUILD_ROOT
