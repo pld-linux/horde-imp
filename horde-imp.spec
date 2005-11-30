@@ -142,7 +142,7 @@ if [ -f /var/lock/subsys/httpd ]; then
 fi
 
 %triggerpostun -- horde-imp < 4.0.4-1.10
-for i in conf.php conf.xml filter.txt header.txt menu.php mime_drivers.php motd.php prefs.php servers.php trailer.txt; do
+for i in conf.php filter.txt header.txt menu.php mime_drivers.php motd.php prefs.php servers.php trailer.txt; do
 	if [ -f /etc/horde.org/imp/$i.rpmsave ]; then
 		mv -f %{_sysconfdir}/$i{,.rpmnew}
 		mv -f /etc/horde.org/imp/$i.rpmsave %{_sysconfdir}/$i
