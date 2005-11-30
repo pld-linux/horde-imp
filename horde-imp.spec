@@ -135,6 +135,7 @@ if [ -f /etc/httpd/imp.conf.rpmsave ]; then
 	mv -f %{_sysconfdir}/httpd.conf{,.rpmnew}
 	cp -f /etc/httpd/imp.conf.rpmsave %{_sysconfdir}/apache.conf
 	cp -f /etc/httpd/imp.conf.rpmsave %{_sysconfdir}/httpd.conf
+	rm -f /etc/httpd/imp.conf.rpmsave
 fi
 
 if [ -f /var/lock/subsys/httpd ]; then
@@ -154,6 +155,7 @@ if [ -f /etc/horde.org/apache-imp.conf.rpmsave ]; then
 	mv -f %{_sysconfdir}/httpd.conf{,.rpmnew}
 	cp -f /etc/horde.org/apache-imp.conf.rpmsave %{_sysconfdir}/apache.conf
 	cp -f /etc/horde.org/apache-imp.conf.rpmsave %{_sysconfdir}/httpd.conf
+	rm -f /etc/horde.org/apache-imp.conf.rpmsave
 fi
 
 if [ -L /etc/apache/conf.d/99_horde-imp.conf ]; then
