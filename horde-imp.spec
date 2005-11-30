@@ -1,7 +1,7 @@
 %define	_hordeapp	imp
 #define	_snap	2005-08-22
 #define	_rc		rc2
-%define	_rel	1.12
+%define	_rel	1.13
 #
 %include	/usr/lib/rpm/macros.php
 Summary:	Web Based IMAP Mail Program
@@ -66,7 +66,7 @@ IMP-a) mo¿na znale¼æ na stronie <http://www.horde.org/>.
 Programa de Mail via Web baseado no IMAP.
 
 %prep
-%setup -q -c -T -n %{?_snap:%{_hordeapp}-%{_snap}}%{!?_snap:%{_hordeapp}-%{version}%{?_rc:-%{_rc}}}
+%setup -qcT -n %{?_snap:%{_hordeapp}-%{_snap}}%{!?_snap:%{_hordeapp}-%{version}%{?_rc:-%{_rc}}}
 tar zxf %{SOURCE0} --strip-components=1
 %patch0 -p1
 
@@ -81,7 +81,7 @@ rm -f test.php
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_sysconfdir} \
-	$RPM_BUILD_ROOT%{_appdir}/{docs,lib,locale,scripts,templates,themes}
+	$RPM_BUILD_ROOT%{_appdir}/{docs,lib,locale,templates,themes}
 
 cp -a *.php			$RPM_BUILD_ROOT%{_appdir}
 for i in config/*.dist; do
@@ -91,10 +91,10 @@ echo '<?php ?>' >		$RPM_BUILD_ROOT%{_sysconfdir}/conf.php
 cp -p config/conf.xml	$RPM_BUILD_ROOT%{_sysconfdir}/conf.xml
 touch					$RPM_BUILD_ROOT%{_sysconfdir}/conf.php.bak
 
-cp -pR	lib/*			$RPM_BUILD_ROOT%{_appdir}/lib
-cp -pR	locale/*		$RPM_BUILD_ROOT%{_appdir}/locale
-cp -pR	templates/*		$RPM_BUILD_ROOT%{_appdir}/templates
-cp -pR	themes/*		$RPM_BUILD_ROOT%{_appdir}/themes
+cp -a	lib/*			$RPM_BUILD_ROOT%{_appdir}/lib
+cp -a	locale/*		$RPM_BUILD_ROOT%{_appdir}/locale
+cp -a	templates/*		$RPM_BUILD_ROOT%{_appdir}/templates
+cp -a	themes/*		$RPM_BUILD_ROOT%{_appdir}/themes
 
 ln -s %{_sysconfdir} 	$RPM_BUILD_ROOT%{_appdir}/config
 ln -s %{_docdir}/%{name}-%{version}/CREDITS $RPM_BUILD_ROOT%{_appdir}/docs
@@ -174,7 +174,7 @@ fi
 %files
 %defattr(644,root,root,755)
 %doc README docs/* scripts
-%attr(750,root,http) %dir %{_sysconfdir}
+%dir %attr(750,root,http) %{_sysconfdir}
 %attr(640,root,root) %config(noreplace) %{_sysconfdir}/apache.conf
 %attr(640,root,root) %config(noreplace) %{_sysconfdir}/httpd.conf
 %attr(660,root,http) %config(noreplace) %{_sysconfdir}/conf.php
