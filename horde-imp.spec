@@ -1,7 +1,7 @@
 %define	_hordeapp	imp
 #define	_snap	2005-08-22
 #define	_rc		rc2
-%define	_rel	1.15
+%define	_rel	2
 #
 %include	/usr/lib/rpm/macros.php
 Summary:	Web Based IMAP Mail Program
