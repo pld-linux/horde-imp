@@ -1,7 +1,7 @@
 %define	_hordeapp	imp
 #define	_snap	2005-08-22
 %define	_rc		rc1
-#%define	_rel	1
+%define	_rel	1
 #
 %include	/usr/lib/rpm/macros.php
 Summary:	Web Based IMAP Mail Program
@@ -10,7 +10,7 @@ Summary(pl):	Program do obs³ugi poczty przez WWW korzystaj±cy z IMAP-a
 Summary(pt_BR):	Programa de Mail via Web
 Name:		horde-%{_hordeapp}
 Version:	4.1
-Release:	%{?_rc:1.%{_rc}.}%{?_snap:0.%(echo %{_snap} | tr -d -).}%{_rel}
+Release:	%{?_rc:0.%{_rc}.}%{?_snap:0.%(echo %{_snap} | tr -d -).}%{_rel}
 License:	GPL v2
 Group:		Applications/WWW
 #Source0:	ftp://ftp.horde.org/pub/imp/%{_hordeapp}-h3-%{version}.tar.gz
