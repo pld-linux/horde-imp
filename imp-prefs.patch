@@ -1,6 +1,6 @@
-diff -u -r imp-4.0.4.pre/config/conf.xml imp-4.0.4/config/conf.xml
---- imp-4.0.4.pre/config/conf.xml	2004-12-09 17:33:27.000000000 +0200
-+++ imp-4.0.4/config/conf.xml	2005-12-01 00:35:22.000000000 +0200
+diff -ur imp-h3-4.1-rc1/config/conf.xml imp-h3-4.1-rc1.new/config/conf.xml
+--- imp-h3-4.1-rc1/config/conf.xml	2005-11-27 06:48:57.000000000 +0000
++++ imp-h3-4.1-rc1.new/config/conf.xml	2006-01-05 10:36:52.954923750 +0000
 @@ -23,7 +23,7 @@
     connecting to the PGP keyserver. Timeouts are not supported on all
     systems.">10</configstring>
@@ -10,21 +10,21 @@ diff -u -r imp-4.0.4.pre/config/conf.xml imp-4.0.4/config/conf.xml
     <configstring name="openssl_binary" required="false" desc="The location of
     the OpenSSL binary on your system. This program is REQUIRED to import
     personal S/MIME certificate information, as there is no native PHP function
-@@ -169,7 +169,7 @@
-    email address for each user (e.g. DSPAM), this setting should be empty and
-    you should look at the _imp_hook_spam_bounce hook instead."/>
-    <configstring name="program" required="false" desc="Should we report them
--   via an external program? (e.g. /usr/local/bin/spamassassin -r)"/>
-+   via an external program? (e.g. /usr/bin/spamassassin -r)"/>
-   </configsection>
-   <configsection name="notspam">
-    <configboolean name="reporting" desc="Should we display a 'report this
-@@ -184,7 +184,7 @@
-    email address for each user (e.g. DSPAM), this setting should be empty and
-    and you should look at the _imp_hook_spam_bounce hook instead."/>
-    <configstring name="program" required="false" desc="Should we report them
--   via an external program? (e.g. /usr/local/bin/spamassassin -k)"/>
-+   via an external program? (e.g. /usr/bin/spamassassin -k)"/>
-   </configsection>
-  </configtab>
- 
+@@ -182,7 +182,7 @@
+      email address for each user (e.g. DSPAM), this setting should be empty and
+      you should look at the _imp_hook_spam_bounce hook instead."/>
+      <configstring name="program" required="false" desc="Should we report the spam
+-     message via an external program (e.g. /usr/local/bin/spamassassin -r)? If you
++     message via an external program (e.g. /usr/bin/spamassassin -r)? If you
+      include the placeholder %u in this string, it will be replaced with the
+      current username."/>
+     </case>
+@@ -206,7 +206,7 @@
+      email address for each user (e.g. DSPAM), this setting should be empty and
+      and you should look at the _imp_hook_spam_bounce hook instead."/>
+      <configstring name="program" required="false" desc="Should we report the innocent
+-     message via an external program (e.g. /usr/local/bin/spamassassin -k)? If you
++     message via an external program (e.g. /usr/bin/spamassassin -k)? If you
+      include the placeholder %u in this string, it will be replaced with the
+      current username."/>
+     </case>
