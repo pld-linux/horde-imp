@@ -1,7 +1,7 @@
 %define	_hordeapp	imp
 #define	_snap	2005-08-22
 %define	_rc		rc1
-%define	_rel	1.3
+%define	_rel	1.4
 #
 %include	/usr/lib/rpm/macros.php
 Summary:	Web Based IMAP Mail Program
@@ -114,7 +114,7 @@ fi
 %triggerun -- apache >= 2.0.0
 %webapp_unregister httpd %{_webapp}
 
-%triggerpostun -- imp <= 4.0.2-1
+%triggerpostun -- horde-imp < 4.0.4-1.10, imp
 for i in conf.php filter.txt header.txt html.php menu.php mime_drivers.php motd.php prefs.php servers.php trailer.txt; do
 	if [ -f /home/services/httpd/html/horde/imp/config/$i.rpmsave ]; then
 		mv -f %{_sysconfdir}/$i{,.rpmnew}
@@ -128,10 +128,9 @@ if [ -f /etc/httpd/imp.conf.rpmsave ]; then
 	cp -f /etc/httpd/imp.conf.rpmsave %{_sysconfdir}/apache.conf
 	cp -f /etc/httpd/imp.conf.rpmsave %{_sysconfdir}/httpd.conf
 	rm -f /etc/httpd/imp.conf.rpmsave
-	%service -q httpd reload
+	httpd_reload=1
 fi
 
-%triggerpostun -- horde-imp < 4.0.4-1.10, imp < 4.0.4-1.10
 for i in conf.php filter.txt header.txt menu.php mime_drivers.php motd.php prefs.php servers.php trailer.txt; do
 	if [ -f /etc/horde.org/imp/$i.rpmsave ]; then
 		mv -f %{_sysconfdir}/$i{,.rpmnew}
@@ -155,6 +154,10 @@ fi
 if [ -L /etc/httpd/httpd.conf/99_horde-imp.conf ]; then
 	rm -f /etc/httpd/httpd.conf/99_horde-imp.conf
 	/usr/sbin/webapp register httpd %{_webapp}
+	httpd_reload=1
+fi
+
+if [ "$httpd_reload" ]; then
 	%service -q httpd reload
 fi
 
