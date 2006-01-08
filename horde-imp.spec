@@ -1,7 +1,7 @@
 %define	_hordeapp	imp
 #define	_snap	2005-08-22
 %define	_rc		rc1
-%define	_rel	1
+%define	_rel	1.2
 #
 %include	/usr/lib/rpm/macros.php
 Summary:	Web Based IMAP Mail Program
@@ -22,7 +22,7 @@ Patch0:		%{_hordeapp}-path.patch
 Patch1:		%{_hordeapp}-prefs.patch
 URL:		http://www.horde.org/imp/
 BuildRequires:	rpm-php-pearprov >= 4.0.2-98
-BuildRequires:	rpmbuild(macros) >= 1.264
+BuildRequires:	rpmbuild(macros) >= 1.268
 BuildRequires:	tar >= 1:1.15.1
 Requires:	apache(mod_access)
 Requires:	horde >= 3.0
@@ -114,7 +114,7 @@ fi
 %triggerun -- apache >= 2.0.0
 %webapp_unregister httpd %{_webapp}
 
-%triggerpostun -- imp <= 3.2.6-0.1
+%triggerpostun -- imp <= 4.0.2-1
 for i in conf.php filter.txt header.txt html.php menu.php mime_drivers.php motd.php prefs.php servers.php trailer.txt; do
 	if [ -f /home/services/httpd/html/horde/imp/config/$i.rpmsave ]; then
 		mv -f %{_sysconfdir}/$i{,.rpmnew}
@@ -122,17 +122,13 @@ for i in conf.php filter.txt header.txt html.php menu.php mime_drivers.php motd.
 	fi
 done
 
-%triggerpostun -- imp <= 4.0.2-1
 if [ -f /etc/httpd/imp.conf.rpmsave ]; then
 	mv -f %{_sysconfdir}/apache.conf{,.rpmnew}
 	mv -f %{_sysconfdir}/httpd.conf{,.rpmnew}
 	cp -f /etc/httpd/imp.conf.rpmsave %{_sysconfdir}/apache.conf
 	cp -f /etc/httpd/imp.conf.rpmsave %{_sysconfdir}/httpd.conf
 	rm -f /etc/httpd/imp.conf.rpmsave
-fi
-
-if [ -f /var/lock/subsys/httpd ]; then
-	/etc/rc.d/init.d/httpd reload 1>&2
+	%service -q httpd reload
 fi
 
 %triggerpostun -- horde-imp < 4.0.4-1.10
@@ -152,18 +148,14 @@ if [ -f /etc/horde.org/apache-imp.conf.rpmsave ]; then
 fi
 
 if [ -L /etc/apache/conf.d/99_horde-imp.conf ]; then
-	/usr/sbin/webapp register apache %{_webapp}
 	rm -f /etc/apache/conf.d/99_horde-imp.conf
-	if [ -f /var/lock/subsys/apache ]; then
-		/etc/rc.d/init.d/apache reload 1>&2
-	fi
+	/usr/sbin/webapp register apache %{_webapp}
+	%service -q apache reload
 fi
 if [ -L /etc/httpd/httpd.conf/99_horde-imp.conf ]; then
-	/usr/sbin/webapp register httpd %{_webapp}
 	rm -f /etc/httpd/httpd.conf/99_horde-imp.conf
-	if [ -f /var/lock/subsys/httpd ]; then
-		/etc/rc.d/init.d/httpd reload 1>&2
-	fi
+	/usr/sbin/webapp register httpd %{_webapp}
+	%service -q httpd reload
 fi
 
 %files
