@@ -1,7 +1,7 @@
 %define	_hordeapp	imp
 #define	_snap	2005-08-22
 %define	_rc		rc1
-%define	_rel	1.2
+%define	_rel	1.3
 #
 %include	/usr/lib/rpm/macros.php
 Summary:	Web Based IMAP Mail Program
@@ -131,7 +131,7 @@ if [ -f /etc/httpd/imp.conf.rpmsave ]; then
 	%service -q httpd reload
 fi
 
-%triggerpostun -- horde-imp < 4.0.4-1.10
+%triggerpostun -- horde-imp < 4.0.4-1.10, imp < 4.0.4-1.10
 for i in conf.php filter.txt header.txt menu.php mime_drivers.php motd.php prefs.php servers.php trailer.txt; do
 	if [ -f /etc/horde.org/imp/$i.rpmsave ]; then
 		mv -f %{_sysconfdir}/$i{,.rpmnew}
