@@ -1,6 +1,6 @@
 %define	_hordeapp	imp
 #define	_snap	2005-08-22
-%define	_rc		rc2
+%define	_rc		rc3
 %define	_rel	0.1
 #
 %include	/usr/lib/rpm/macros.php
@@ -16,7 +16,7 @@ Group:		Applications/WWW
 #Source0:	ftp://ftp.horde.org/pub/imp/%{_hordeapp}-h3-%{version}.tar.gz
 #Source0:	http://ftp.horde.org/pub/snaps/%{_snap}/%{_hordeapp}-FRAMEWORK_3-%{_snap}.tar.gz
 Source0:	ftp://ftp.horde.org/pub/imp/%{_hordeapp}-h3-%{version}-%{_rc}.tar.gz
-# Source0-md5:	4f6eea4800dd3b7d9a2adcedea212ea8
+# Source0-md5:	ec0cb7132631f18458b4173ee29094a3
 Source1:	%{_hordeapp}.conf
 Patch0:		%{_hordeapp}-path.patch
 Patch1:		%{_hordeapp}-prefs.patch
