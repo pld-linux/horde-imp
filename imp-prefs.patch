@@ -1,15 +1,6 @@
 diff -ur imp-h3-4.1-rc1/config/conf.xml imp-h3-4.1-rc1.new/config/conf.xml
 --- imp-h3-4.1-rc1/config/conf.xml	2005-11-27 06:48:57.000000000 +0000
 +++ imp-h3-4.1-rc1.new/config/conf.xml	2006-01-05 10:36:52.954923750 +0000
-@@ -23,7 +23,7 @@
-    connecting to the PGP keyserver. Timeouts are not supported on all
-    systems.">10</configstring>
-    <configstring name="openssl_cafile" required="false" desc="The location of
--   the root certificates bundle.">/somewhere/ca-bundle.crt</configstring>
-+   the root certificates bundle.">/usr/share/ssl/ca-bundle.crt</configstring>
-    <configstring name="openssl_binary" required="false" desc="The location of
-    the OpenSSL binary on your system. This program is REQUIRED to import
-    personal S/MIME certificate information, as there is no native PHP function
 @@ -182,7 +182,7 @@
       email address for each user (e.g. DSPAM), this setting should be empty and
       you should look at the _imp_hook_spam_bounce hook instead."/>
