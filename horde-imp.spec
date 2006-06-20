@@ -1,7 +1,7 @@
 %define	_hordeapp	imp
 #define	_snap	2005-08-22
 #define	_rc		rc3
-%define	_rel	2
+%define	_rel	1
 #
 %include	/usr/lib/rpm/macros.php
 Summary:	Web Based IMAP Mail Program
@@ -9,18 +9,17 @@ Summary(es):	Programa de correo vía Internet basado en IMAP
 Summary(pl):	Program do obs³ugi poczty przez WWW korzystaj±cy z IMAP-a
 Summary(pt_BR):	Programa de Mail via Web
 Name:		horde-%{_hordeapp}
-Version:	4.1
+Version:	4.1.2
 Release:	%{?_rc:0.%{_rc}.}%{?_snap:0.%(echo %{_snap} | tr -d -).}%{_rel}
 License:	GPL v2
 Group:		Applications/WWW
 Source0:	ftp://ftp.horde.org/pub/imp/%{_hordeapp}-h3-%{version}.tar.gz
-# Source0-md5:	dc5f86c4c6e4d61047444ff9b59dff67
+# Source0-md5:	78f9d47b6e9d0552a1f32c2941ceaf0b
 #Source0:	http://ftp.horde.org/pub/snaps/%{_snap}/%{_hordeapp}-FRAMEWORK_3-%{_snap}.tar.gz
 #Source0:	ftp://ftp.horde.org/pub/imp/%{_hordeapp}-h3-%{version}-%{_rc}.tar.gz
 Source1:	%{_hordeapp}.conf
 Patch0:		%{_hordeapp}-path.patch
 Patch1:		%{_hordeapp}-prefs.patch
-Patch2:		%{_hordeapp}-typo.patch
 URL:		http://www.horde.org/imp/
 BuildRequires:	rpm-php-pearprov >= 4.0.2-98
 BuildRequires:	rpmbuild(macros) >= 1.268
@@ -70,9 +69,7 @@ Programa de Mail via Web baseado no IMAP.
 tar zxf %{SOURCE0} --strip-components=1
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
 
-rm {,*/}.htaccess
 for i in config/*.dist; do
 	mv $i config/$(basename $i .dist)
 done
