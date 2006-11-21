@@ -1,7 +1,7 @@
 %define	_hordeapp	imp
 #define	_snap	2005-08-22
 #define	_rc		rc3
-%define	_rel	2
+%define	_rel	3
 #
 %include	/usr/lib/rpm/macros.php
 Summary:	Web Based IMAP Mail Program
@@ -25,8 +25,8 @@ BuildRequires:	rpm-php-pearprov >= 4.0.2-98
 BuildRequires:	rpmbuild(macros) >= 1.268
 BuildRequires:	tar >= 1:1.15.1
 Requires:	horde >= 3.0
-Requires:	php-ctype
-Requires:	php-imap
+Requires:	php(ctype)
+Requires:	php(imap)
 Requires:	webapps
 Obsoletes:	%{_hordeapp}
 BuildArch:	noarch
