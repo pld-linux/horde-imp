@@ -5,9 +5,9 @@
 #
 %include	/usr/lib/rpm/macros.php
 Summary:	Web Based IMAP Mail Program
-Summary(es):	Programa de correo vía Internet basado en IMAP
-Summary(pl):	Program do obs³ugi poczty przez WWW korzystaj±cy z IMAP-a
-Summary(pt_BR):	Programa de Mail via Web
+Summary(es.UTF-8):   Programa de correo vÃ­a Internet basado en IMAP
+Summary(pl.UTF-8):   Program do obsÅ‚ugi poczty przez WWW korzystajÄ…cy z IMAP-a
+Summary(pt_BR.UTF-8):   Programa de Mail via Web
 Name:		horde-%{_hordeapp}
 Version:	4.1.3
 Release:	%{?_rc:0.%{_rc}.}%{?_snap:0.%(echo %{_snap} | tr -d -).}%{_rel}
@@ -50,18 +50,18 @@ The Horde Project writes web applications in PHP and releases them
 under the GNU Public License. For more information (including help
 with IMP) please visit <http://www.horde.org/>.
 
-%description -l es
-Programa de correo vía Internet basado en IMAP.
+%description -l es.UTF-8
+Programa de correo vÃ­a Internet basado en IMAP.
 
-%description -l pl
-IMP jest programem do obs³ugi poczty przez WWW, bazowanym na Horde.
-Daje dostêp do poczty poprzez IMAP oraz POP3.
+%description -l pl.UTF-8
+IMP jest programem do obsÅ‚ugi poczty przez WWW, bazowanym na Horde.
+Daje dostÄ™p do poczty poprzez IMAP oraz POP3.
 
 Projekt Horde tworzy aplikacje WWW w PHP i wydaje je na licencji GNU
-General Public License. Wiêcej informacji (w³±cznie z pomoc± dla
-IMP-a) mo¿na znale¼æ na stronie <http://www.horde.org/>.
+General Public License. WiÄ™cej informacji (wÅ‚Ä…cznie z pomocÄ… dla
+IMP-a) moÅ¼na znaleÅºÄ‡ na stronie <http://www.horde.org/>.
 
-%description -l pt_BR
+%description -l pt_BR.UTF-8
 Programa de Mail via Web baseado no IMAP.
 
 %prep
