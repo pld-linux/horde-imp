@@ -5,9 +5,9 @@
 #
 %include	/usr/lib/rpm/macros.php
 Summary:	Web Based IMAP Mail Program
-Summary(es.UTF-8):   Programa de correo vía Internet basado en IMAP
-Summary(pl.UTF-8):   Program do obsługi poczty przez WWW korzystający z IMAP-a
-Summary(pt_BR.UTF-8):   Programa de Mail via Web
+Summary(es.UTF-8):	Programa de correo vía Internet basado en IMAP
+Summary(pl.UTF-8):	Program do obsługi poczty przez WWW korzystający z IMAP-a
+Summary(pt_BR.UTF-8):	Programa de Mail via Web
 Name:		horde-%{_hordeapp}
 Version:	4.1.3
 Release:	%{?_rc:0.%{_rc}.}%{?_snap:0.%(echo %{_snap} | tr -d -).}%{_rel}
