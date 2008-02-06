@@ -1,11 +1,11 @@
---- imp-h3-4.0.1/config/prefs.php.dist	2004-12-03 19:31:47.000000000 +0100
-+++ imp-h3-4.0.1.new/config/prefs.php.dist	2005-01-17 15:58:49.166623232 +0100
+--- imp-4.2-rc2/config/prefs.php.dist~	2008-02-07 00:59:33.000000000 +0200
++++ imp-4.2-rc2/config/prefs.php.dist	2008-02-07 01:00:22.684662278 +0200
 @@ -6,7 +6,7 @@
   */
  
  // Make sure that constants are defined.
--@define('IMP_BASE', dirname(__FILE__) . '/..');
-+@define('IMP_BASE', '/usr/share/horde/imp');
- require_once IMP_BASE . '/lib/IMP.php';
+-require_once dirname(__FILE__) . '/../lib/IMP.php';
++require_once '/usr/share/horde/imp/lib/IMP.php';
  
  $prefGroups['identities'] = array(
+     'column' => _("General Options"),
