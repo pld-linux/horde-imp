@@ -1,25 +1,25 @@
-%define	_hordeapp	imp
-#define	_snap	2005-08-22
-%define	_rc		rc1
-%define	_rel	1
+%define		hordeapp	imp
+#define		_snap	2005-08-22
+%define		subver	rc2
+%define		_rel	1
 #
 %include	/usr/lib/rpm/macros.php
 Summary:	Web Based IMAP Mail Program
 Summary(es.UTF-8):	Programa de correo vía Internet basado en IMAP
 Summary(pl.UTF-8):	Program do obsługi poczty przez WWW korzystający z IMAP-a
 Summary(pt_BR.UTF-8):	Programa de Mail via Web
-Name:		horde-%{_hordeapp}
+Name:		horde-%{hordeapp}
 Version:	4.2
-Release:	%{?_rc:0.%{_rc}.}%{?_snap:0.%(echo %{_snap} | tr -d -).}%{_rel}
+Release:	%{?subver:0.%{subver}.}%{?_snap:0.%(echo %{_snap} | tr -d -).}%{_rel}
 License:	GPL v2
 Group:		Applications/WWW
-#Source0:	http://ftp.horde.org/pub/snaps/%{_snap}/%{_hordeapp}-FRAMEWORK_3-%{_snap}.tar.gz
-Source0:	ftp://ftp.horde.org/pub/imp/%{_hordeapp}-h3-%{version}-%{_rc}.tar.gz
-# Source0-md5:	84387c5dc737f1390afe4ebb4c5c1441
-#Source0:	ftp://ftp.horde.org/pub/imp/%{_hordeapp}-h3-%{version}.tar.gz
-Source1:	%{_hordeapp}.conf
-Patch0:		%{_hordeapp}-path.patch
-Patch1:		%{_hordeapp}-prefs.patch
+#Source0:	http://ftp.horde.org/pub/snaps/%{_snap}/%{hordeapp}-FRAMEWORK_3-%{_snap}.tar.gz
+Source0:	ftp://ftp.horde.org/pub/imp/%{hordeapp}-h3-%{version}-%{subver}.tar.gz
+# Source0-md5:	f71b54aa1a0fd6b7bb10b26f22d0d5f0
+#Source0:	ftp://ftp.horde.org/pub/imp/%{hordeapp}-h3-%{version}.tar.gz
+Source1:	%{hordeapp}.conf
+Patch0:		%{hordeapp}-path.patch
+Patch1:		%{hordeapp}-prefs.patch
 URL:		http://www.horde.org/imp/
 BuildRequires:	rpm-php-pearprov >= 4.0.2-98
 BuildRequires:	rpmbuild(macros) >= 1.268
@@ -28,7 +28,7 @@ Requires:	horde >= 3.0
 Requires:	php(ctype)
 Requires:	php(imap)
 Requires:	webapps
-Obsoletes:	%{_hordeapp}
+Obsoletes:	%{hordeapp}
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -37,9 +37,9 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define		_noautoreq			'pear(Horde.*)' 'pear(Text/Flowed.php)'
 
 %define		hordedir	/usr/share/horde
-%define		_appdir		%{hordedir}/%{_hordeapp}
+%define		_appdir		%{hordedir}/%{hordeapp}
 %define		_webapps	/etc/webapps
-%define		_webapp		horde-%{_hordeapp}
+%define		_webapp		horde-%{hordeapp}
 %define		_sysconfdir	%{_webapps}/%{_webapp}
 
 %description
@@ -65,7 +65,7 @@ IMP-a) można znaleźć na stronie <http://www.horde.org/>.
 Programa de Mail via Web baseado no IMAP.
 
 %prep
-%setup -qcT -n %{?_snap:%{_hordeapp}-%{_snap}}%{!?_snap:%{_hordeapp}-%{version}%{?_rc:-%{_rc}}}
+%setup -qcT -n %{?_snap:%{hordeapp}-%{_snap}}%{!?_snap:%{hordeapp}-%{version}%{?subver:-%{subver}}}
 tar zxf %{SOURCE0} --strip-components=1
 %patch0 -p1
 %patch1 -p1
