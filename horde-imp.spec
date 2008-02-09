@@ -9,14 +9,14 @@ Summary(es.UTF-8):	Programa de correo vía Internet basado en IMAP
 Summary(pl.UTF-8):	Program do obsługi poczty przez WWW korzystający z IMAP-a
 Summary(pt_BR.UTF-8):	Programa de Mail via Web
 Name:		horde-%{_hordeapp}
-Version:	4.1.5
+Version:	4.1.6
 Release:	%{?_rc:0.%{_rc}.}%{?_snap:0.%(echo %{_snap} | tr -d -).}%{_rel}
 License:	GPL v2
 Group:		Applications/WWW
 #Source0:	http://ftp.horde.org/pub/snaps/%{_snap}/%{_hordeapp}-FRAMEWORK_3-%{_snap}.tar.gz
 #Source0:	ftp://ftp.horde.org/pub/imp/%{_hordeapp}-h3-%{version}-%{_rc}.tar.gz
 Source0:	ftp://ftp.horde.org/pub/imp/%{_hordeapp}-h3-%{version}.tar.gz
-# Source0-md5:	d5a82fab36da8582631fdd91d2bdd0e9
+# Source0-md5:	9467292275a2bf5e395d099f82f0dd78
 Source1:	%{_hordeapp}.conf
 Patch0:		%{_hordeapp}-path.patch
 Patch1:		%{_hordeapp}-prefs.patch
