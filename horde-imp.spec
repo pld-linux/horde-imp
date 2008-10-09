@@ -58,7 +58,7 @@ IMP-a) można znaleźć na stronie <http://www.horde.org/>.
 Programa de Mail via Web baseado no IMAP.
 
 %prep
-%setup -q
+%setup -q -n %{_hordeapp}-h3-%{version}
 %patch0 -p1
 %patch1 -p1
 
