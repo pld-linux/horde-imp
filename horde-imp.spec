@@ -1,7 +1,4 @@
 %define		hordeapp	imp
-#define		_snap	2005-08-22
-%define		subver	rc2
-%define		_rel	1
 #
 %include	/usr/lib/rpm/macros.php
 Summary:	Web Based IMAP Mail Program
@@ -9,14 +6,12 @@ Summary(es.UTF-8):	Programa de correo vía Internet basado en IMAP
 Summary(pl.UTF-8):	Program do obsługi poczty przez WWW korzystający z IMAP-a
 Summary(pt_BR.UTF-8):	Programa de Mail via Web
 Name:		horde-%{hordeapp}
-Version:	4.2
-Release:	%{?subver:0.%{subver}.}%{?_snap:0.%(echo %{_snap} | tr -d -).}%{_rel}
+Version:	4.3
+Release:	0.1
 License:	GPL v2
 Group:		Applications/WWW
-#Source0:	http://ftp.horde.org/pub/snaps/%{_snap}/%{hordeapp}-FRAMEWORK_3-%{_snap}.tar.gz
-Source0:	ftp://ftp.horde.org/pub/imp/%{hordeapp}-h3-%{version}-%{subver}.tar.gz
-# Source0-md5:	f71b54aa1a0fd6b7bb10b26f22d0d5f0
-#Source0:	ftp://ftp.horde.org/pub/imp/%{hordeapp}-h3-%{version}.tar.gz
+Source0:	ftp://ftp.horde.org/pub/imp/%{hordeapp}-h3-%{version}.tar.gz
+# Source0-md5:	63e41417c8f31daf1b3b6eaa64a65ac2
 Source1:	%{hordeapp}.conf
 Patch0:		%{hordeapp}-path.patch
 Patch1:		%{hordeapp}-prefs.patch
@@ -65,8 +60,7 @@ IMP-a) można znaleźć na stronie <http://www.horde.org/>.
 Programa de Mail via Web baseado no IMAP.
 
 %prep
-%setup -qcT -n %{?_snap:%{hordeapp}-%{_snap}}%{!?_snap:%{hordeapp}-%{version}%{?subver:-%{subver}}}
-tar zxf %{SOURCE0} --strip-components=1
+%setup -q
 %patch0 -p1
 %patch1 -p1
 
