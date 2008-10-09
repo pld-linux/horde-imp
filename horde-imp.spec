@@ -18,7 +18,6 @@ Patch1:		%{hordeapp}-prefs.patch
 URL:		http://www.horde.org/imp/
 BuildRequires:	rpm-php-pearprov >= 4.0.2-98
 BuildRequires:	rpmbuild(macros) >= 1.268
-BuildRequires:	tar >= 1:1.15.1
 Requires:	horde >= 3.0
 Requires:	php(ctype)
 Requires:	php(imap)
