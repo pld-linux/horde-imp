@@ -7,7 +7,7 @@ Summary(pl.UTF-8):	Program do obsługi poczty przez WWW korzystający z IMAP-a
 Summary(pt_BR.UTF-8):	Programa de Mail via Web
 Name:		horde-%{hordeapp}
 Version:	4.3
-Release:	0.2
+Release:	1
 License:	GPL v2
 Group:		Applications/WWW
 Source0:	ftp://ftp.horde.org/pub/imp/%{hordeapp}-h3-%{version}.tar.gz
@@ -26,7 +26,7 @@ Obsoletes:	%{hordeapp}
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		_noautoreq	'pear(Horde.*)' 'pear(Text/Flowed.php)'
+%define		_noautoreq	'pear(/usr/share/horde.*)' 'pear(Horde.*)' 'pear(Text/Flowed.php)'
 
 %define		hordedir	/usr/share/horde
 %define		_appdir		%{hordedir}/%{hordeapp}
