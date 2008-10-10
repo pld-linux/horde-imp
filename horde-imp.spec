@@ -7,7 +7,7 @@ Summary(pl.UTF-8):	Program do obsługi poczty przez WWW korzystający z IMAP-a
 Summary(pt_BR.UTF-8):	Programa de Mail via Web
 Name:		horde-%{hordeapp}
 Version:	4.3
-Release:	0.1
+Release:	1
 License:	GPL v2
 Group:		Applications/WWW
 Source0:	ftp://ftp.horde.org/pub/imp/%{hordeapp}-h3-%{version}.tar.gz
@@ -57,7 +57,7 @@ IMP-a) można znaleźć na stronie <http://www.horde.org/>.
 Programa de Mail via Web baseado no IMAP.
 
 %prep
-%setup -q -n %{_hordeapp}-h3-%{version}
+%setup -q -n %{hordeapp}-h3-%{version}
 %patch0 -p1
 %patch1 -p1
 
@@ -77,7 +77,7 @@ cp -a *.php $RPM_BUILD_ROOT%{_appdir}
 cp -a config/* $RPM_BUILD_ROOT%{_sysconfdir}
 echo '<?php ?>' > $RPM_BUILD_ROOT%{_sysconfdir}/conf.php
 touch $RPM_BUILD_ROOT%{_sysconfdir}/conf.php.bak
-cp -a lib locale templates themes $RPM_BUILD_ROOT%{_appdir}
+cp -a js lib locale templates themes $RPM_BUILD_ROOT%{_appdir}
 cp -a docs/CREDITS $RPM_BUILD_ROOT%{_appdir}/docs
 
 ln -s %{_sysconfdir} 	$RPM_BUILD_ROOT%{_appdir}/config
@@ -167,6 +167,7 @@ fi
 %{_appdir}/*.php
 %{_appdir}/config
 %{_appdir}/docs
+%{_appdir}/js
 %{_appdir}/lib
 %{_appdir}/locale
 %{_appdir}/templates
