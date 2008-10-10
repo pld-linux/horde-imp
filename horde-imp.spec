@@ -7,7 +7,7 @@ Summary(pl.UTF-8):	Program do obsługi poczty przez WWW korzystający z IMAP-a
 Summary(pt_BR.UTF-8):	Programa de Mail via Web
 Name:		horde-%{hordeapp}
 Version:	4.3
-Release:	1
+Release:	0.2
 License:	GPL v2
 Group:		Applications/WWW
 Source0:	ftp://ftp.horde.org/pub/imp/%{hordeapp}-h3-%{version}.tar.gz
