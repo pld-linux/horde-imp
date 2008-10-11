@@ -27,7 +27,7 @@ Requires:	webapps
 Suggests:	php-pear-Auth_SASL
 Suggests:	php-pear-HTTP_Request
 Suggests:	php-pecl-idn
-Obsoletes:	%{hordeapp}
+Obsoletes:	imp
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
