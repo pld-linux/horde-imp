@@ -15,6 +15,7 @@ Source0:	ftp://ftp.horde.org/pub/imp/%{hordeapp}-h3-%{version}.tar.gz
 Source1:	%{hordeapp}.conf
 Patch0:		%{hordeapp}-path.patch
 Patch1:		%{hordeapp}-prefs.patch
+Patch2:		%{hordeapp}-quota_hook.patch
 URL:		http://www.horde.org/imp/
 BuildRequires:	rpm-php-pearprov >= 4.0.2-98
 BuildRequires:	rpmbuild(macros) >= 1.268
@@ -65,6 +66,7 @@ Programa de Mail via Web baseado no IMAP.
 %setup -q -n %{hordeapp}-h3-%{version}
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 for i in config/*.dist; do
 	mv $i config/$(basename $i .dist)
