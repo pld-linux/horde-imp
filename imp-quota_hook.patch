@@ -16,19 +16,16 @@ diff -ur imp-h3-4.3/config/hooks.php.dist imp-h3-4.3-quota_hook/config/hooks.php
  
          $session = ssh2_connect($host);
          if (!$session) {
-@@ -524,7 +524,13 @@
+@@ -524,7 +524,9 @@
          $stream = ssh2_exec($session, $command, false);
          stream_set_blocking($stream, true);
  
 -        $quota = preg_split('/\s+/', trim(stream_get_contents($stream)), 2);
-+	$patt = '/.*'.preg_quote($fs, '/').'.*/';
-+	foreach (preg_split('/\n/', stream_get_contents($stream)) as $line) {
-+		if (preg_match($patt, $line)) {
-+			$quota = preg_split('/\s+/', trim($line));
-+			break;
-+		}
-+	}
-         return array($quota[1] * 1024, $quota[2] * 1024);
+-        return array($quota[1] * 1024, $quota[2] * 1024);
++	$patt = '/.*'.preg_quote($fs, '/').'/';
++	$line = preg_replace('/\n/', ' ', stream_get_contents($stream));
++	$quota = preg_split('/\s+/', trim(preg_replace($patt, '',  $line)), 3);
++	return array($quota[0] * 1024, $quota[1] * 1024);
      }
  }
 diff -ur imp-h3-4.3/config/servers.php.dist imp-h3-4.3-quota_hook/config/servers.php.dist
