@@ -1,0 +1,11 @@
+--- imp-h3-4.3/lib/api.php~	2008-09-24 20:04:53.000000000 +0200
++++ imp-h3-4.3/lib/api.php	2008-10-16 18:14:29.000000000 +0200
+@@ -143,7 +143,7 @@
+         require IMP_BASE . '/config/servers.php';
+     }
+ 
+-    return IMP_Session::createSession($userID, $credentials['password'], $server_key, empty($result[$server_key]) ? array() : $result[$server_key]);
++    return IMP_Session::createSession($userID, $credentials['password'], $server_key, empty($servers[$server_key]) ? array() : $servers[$server_key]);
+ }
+ 
+ /**
