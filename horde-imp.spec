@@ -1,3 +1,7 @@
+#
+# NOTE: When upgrading check if (almost) all languages have translations
+#	needed by imp-iportant.patch, and update the patch accordingly
+#
 %define		hordeapp	imp
 #
 %include	/usr/lib/rpm/macros.php
@@ -7,7 +11,7 @@ Summary(pl.UTF-8):	Program do obsługi poczty przez WWW korzystający z IMAP-a
 Summary(pt_BR.UTF-8):	Programa de Mail via Web
 Name:		horde-%{hordeapp}
 Version:	4.3
-Release:	4
+Release:	4.1
 License:	GPL v2
 Group:		Applications/WWW
 Source0:	ftp://ftp.horde.org/pub/imp/%{hordeapp}-h3-%{version}.tar.gz
@@ -17,7 +21,9 @@ Patch0:		%{hordeapp}-path.patch
 Patch1:		%{hordeapp}-prefs.patch
 Patch2:		%{hordeapp}-quota_hook.patch
 Patch3:		%{hordeapp}-auth.patch
+Patch4:		%{hordeapp}-important.patch
 URL:		http://www.horde.org/imp/
+BuildRequires:	horde-localegen
 BuildRequires:	rpm-php-pearprov >= 4.0.2-98
 BuildRequires:	rpmbuild(macros) >= 1.268
 Requires:	horde >= 3.0
@@ -69,6 +75,7 @@ Programa de Mail via Web baseado no IMAP.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 for i in config/*.dist; do
 	mv $i config/$(basename $i .dist)
