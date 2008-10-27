@@ -11,7 +11,7 @@ Summary(pl.UTF-8):	Program do obsługi poczty przez WWW korzystający z IMAP-a
 Summary(pt_BR.UTF-8):	Programa de Mail via Web
 Name:		horde-%{hordeapp}
 Version:	4.3
-Release:	4.1
+Release:	5
 License:	GPL v2
 Group:		Applications/WWW
 Source0:	ftp://ftp.horde.org/pub/imp/%{hordeapp}-h3-%{version}.tar.gz
@@ -23,7 +23,7 @@ Patch2:		%{hordeapp}-quota_hook.patch
 Patch3:		%{hordeapp}-auth.patch
 Patch4:		%{hordeapp}-important.patch
 URL:		http://www.horde.org/imp/
-BuildRequires:	horde-localegen
+BuildRequires:	gettext-devel
 BuildRequires:	rpm-php-pearprov >= 4.0.2-98
 BuildRequires:	rpmbuild(macros) >= 1.268
 Requires:	horde >= 3.0
@@ -84,6 +84,12 @@ done
 rm test.php
 # remove backup files from patching
 find '(' -name '*~' -o -name '*.orig' ')' | xargs -r rm -v
+
+cd po
+for file in *.po ; do
+	__lang=${file%.po}
+	msgfmt $file -o ../locale/$__lang/LC_MESSAGES/imp.mo
+done
 
 %install
 rm -rf $RPM_BUILD_ROOT
