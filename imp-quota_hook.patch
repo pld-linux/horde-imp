@@ -1,17 +1,13 @@
 diff -ur imp-h3-4.3/config/hooks.php.dist imp-h3-4.3-quota_hook/config/hooks.php.dist
 --- imp-h3-4.3/config/hooks.php.dist	2008-06-05 11:04:14.000000000 +0200
 +++ imp-h3-4.3-quota_hook/config/hooks.php.dist	2008-10-12 01:35:41.000000000 +0200
-@@ -505,12 +505,12 @@
- //               In case of an error, return PEAR::raiseError()
- 
- // if (!function_exists('_imp_hook_quota')) {
--//     function _imp_hook_quota($params = null)
-+//     function _imp_hook_quota($command = null, $fs = null)
- //     {
+@@ -505,7 +505,9 @@
  //         $host = $_SESSION['imp']['server'];
  //         $user = $_SESSION['imp']['user'];
  //         $pass = Auth::getCredential('password');
 -//         $command = $params[0];
++//         $command = $params['command'];
++//         $fs = $params['fs'];
 +//         $quota = array(0, 0, 0);
  // 
  //         $session = ssh2_connect($host);
