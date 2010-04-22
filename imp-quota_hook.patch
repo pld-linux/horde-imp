@@ -2,32 +2,32 @@ diff -ur imp-h3-4.3/config/hooks.php.dist imp-h3-4.3-quota_hook/config/hooks.php
 --- imp-h3-4.3/config/hooks.php.dist	2008-06-05 11:04:14.000000000 +0200
 +++ imp-h3-4.3-quota_hook/config/hooks.php.dist	2008-10-12 01:35:41.000000000 +0200
 @@ -505,12 +505,12 @@
- //               second: maximum disk space (in bytes)
  //               In case of an error, return PEAR::raiseError()
- if (!function_exists('_imp_hook_quota')) {
--    function _imp_hook_quota($params = null)
-+    function _imp_hook_quota($command = null, $fs = null)
-     {
-         $host = $_SESSION['imp']['server'];
-         $user = $_SESSION['imp']['user'];
-         $pass = Auth::getCredential('password');
--        $command = $params[0];
-+	$quota = array(0, 0, 0);
  
-         $session = ssh2_connect($host);
-         if (!$session) {
+ // if (!function_exists('_imp_hook_quota')) {
+-//     function _imp_hook_quota($params = null)
++//     function _imp_hook_quota($command = null, $fs = null)
+ //     {
+ //         $host = $_SESSION['imp']['server'];
+ //         $user = $_SESSION['imp']['user'];
+ //         $pass = Auth::getCredential('password');
+-//         $command = $params[0];
++//         $quota = array(0, 0, 0);
+ // 
+ //         $session = ssh2_connect($host);
+ //         if (!$session) {
 @@ -524,7 +524,9 @@
-         $stream = ssh2_exec($session, $command, false);
-         stream_set_blocking($stream, true);
- 
--        $quota = preg_split('/\s+/', trim(stream_get_contents($stream)), 2);
--        return array($quota[1] * 1024, $quota[2] * 1024);
-+	$patt = '/.*'.preg_quote($fs, '/').'/';
-+	$line = preg_replace('/\n/', ' ', stream_get_contents($stream));
-+	$quota = preg_split('/\s+/', trim(preg_replace($patt, '',  $line)), 3);
-+	return array($quota[0] * 1024, $quota[1] * 1024);
-     }
- }
+ //         $stream = ssh2_exec($session, $command, false);
+ //         stream_set_blocking($stream, true);
+ // 
+-//         $quota = preg_split('/\s+/', trim(stream_get_contents($stream)), 2);
+-//         return array($quota[1] * 1024, $quota[2] * 1024);
++//         $patt = '/.*'.preg_quote($fs, '/').'/';
++//         $line = preg_replace('/\n/', ' ', stream_get_contents($stream));
++//         $quota = preg_split('/\s+/', trim(preg_replace($patt, '',  $line)), 3);
++//         return array($quota[0] * 1024, $quota[1] * 1024);
+ //     }
+ // }
 diff -ur imp-h3-4.3/config/servers.php.dist imp-h3-4.3-quota_hook/config/servers.php.dist
 --- imp-h3-4.3/config/servers.php.dist	2008-07-03 15:06:15.000000000 +0200
 +++ imp-h3-4.3-quota_hook/config/servers.php.dist	2008-10-12 03:19:36.000000000 +0200
@@ -37,8 +37,8 @@ diff -ur imp-h3-4.3/config/servers.php.dist imp-h3-4.3-quota_hook/config/servers
      'preferred' => '',
 +//    'quota' => array(
 +//        'driver' => 'hook',
-+//	'params' => array('command' => '/usr/bin/quota',
-+//       			  'fs' => '/dev/hdv2'),
++//        'params' => array('command' => '/usr/bin/quota',
++//                          'fs' => '/dev/hdv2'),
 +//    ),
  );
  
