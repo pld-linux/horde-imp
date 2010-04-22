@@ -1,7 +1,3 @@
-#
-# NOTE: When upgrading check if (almost) all languages have translations
-#	needed by imp-iportant.patch, and update the patch accordingly
-#
 %define		hordeapp	imp
 #
 %include	/usr/lib/rpm/macros.php
