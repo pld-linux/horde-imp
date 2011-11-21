@@ -1,0 +1,53 @@
+--- imp-h3-4.3.10/po/pl_PL.po~	2009-01-06 16:24:20.000000000 +0100
++++ imp-h3-4.3.10/po/pl_PL.po	2011-11-21 11:22:24.556042622 +0100
+@@ -563,7 +563,7 @@
+ 
+ #: templates/javascript_defs.php:77
+ msgid "Are you sure you wish to report this message as spam?"
+-msgstr "Czy na pewno chcesz zg³osiæ t± wiadomo¶æ jako spam?"
++msgstr "Czy na pewno chcesz zg³osiæ tê wiadomo¶æ jako spam?"
+ 
+ #: config/prefs.php.dist:1064
+ msgid "Arrival Time"
+@@ -4636,7 +4636,7 @@
+ 
+ #: lib/MIME/Viewer/pkcs7.php:174
+ msgid "This message has been digitally signed via S/MIME."
+-msgstr "Ta wiadomo¶æzosta³± cyfrowo podpisana za pomoc± S/MIME."
++msgstr "Ta wiadomo¶æ zosta³a cyfrowo podpisana za pomoc± S/MIME."
+ 
+ #: lib/MIME/Viewer/pkcs7.php:170 lib/MIME/Viewer/pkcs7.php:281
+ msgid "This message has been encrypted via S/MIME."
+@@ -4649,7 +4649,7 @@
+ 
+ #: message.php:518
+ msgid "This message to"
+-msgstr "T± wiadomo¶æ do"
++msgstr "Tê wiadomo¶æ do"
+ 
+ #: acl.php:45
+ msgid "This server does not support sharing folders."
+@@ -5140,7 +5140,7 @@
+ #: lib/Maillog.php:130
+ #, php-format
+ msgid "You forwarded this message on %%s to the following recipients: %s."
+-msgstr "Przekierowa³e¶ t± wiadomo¶æ na %%s do nastêpuj±cych odbiorców: %s."
++msgstr "Przekierowa³e¶ tê wiadomo¶æ na %%s do nastêpuj±cych odbiorców: %s."
+ 
+ #: lib/IMP.php:969
+ #, php-format
+@@ -5222,12 +5222,12 @@
+ #: lib/Maillog.php:138
+ #, php-format
+ msgid "You redirected this message to %s on %%s."
+-msgstr "Przekierowa³e¶ t± wiadomo¶æ do %s na %%s."
++msgstr "Przekierowa³e¶ tê wiadomo¶æ do %s na %%s."
+ 
+ #: lib/Maillog.php:142
+ #, php-format
+ msgid "You replied to this message on %s."
+-msgstr "Odpowiedzia³e¶ na t± wiadomo¶æ %s."
++msgstr "Odpowiedzia³e¶ na tê wiadomo¶æ %s."
+ 
+ #: lib/Folder.php:469
+ #, php-format

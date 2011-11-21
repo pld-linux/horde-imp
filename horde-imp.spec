@@ -6,19 +6,21 @@ Summary(es.UTF-8):	Programa de correo vía Internet basado en IMAP
 Summary(pl.UTF-8):	Program do obsługi poczty przez WWW korzystający z IMAP-a
 Summary(pt_BR.UTF-8):	Programa de Mail via Web
 Name:		horde-%{hordeapp}
-Version:	4.3.9
+Version:	4.3.10
 Release:	1
 License:	GPL v2
 Group:		Applications/WWW
 Source0:	ftp://ftp.horde.org/pub/imp/%{hordeapp}-h3-%{version}.tar.gz
-# Source0-md5:	2babca2c1715c499053c7721893eb953
+# Source0-md5:	a95a55cd8ed8b5cdec78d586701c8ea1
 Source1:	%{hordeapp}.conf
 Patch0:		%{hordeapp}-path.patch
 Patch1:		%{hordeapp}-prefs.patch
 Patch2:		%{hordeapp}-quota_hook.patch
 Patch3:		%{hordeapp}-important.patch
+Patch4:		%{hordeapp}-pl.patch
 URL:		http://www.horde.org/imp/
 BuildRequires:	gettext-devel
+BuildRequires:	horde-devel >= 3.3.12-2
 BuildRequires:	rpm-php-pearprov >= 4.0.2-98
 BuildRequires:	rpmbuild(macros) >= 1.268
 Requires:	horde >= 3.0
@@ -70,6 +72,7 @@ Programa de Mail via Web baseado no IMAP.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 for i in config/*.dist; do
 	mv $i config/$(basename $i .dist)
@@ -78,6 +81,10 @@ done
 rm test.php
 # remove backup files from patching
 find '(' -name '*~' -o -name '*.orig' ')' | xargs -r rm -v
+
+%build
+horde-translation.php -b . make -l pl_PL
+mv -f locale/pl_PL/LC_MESSAGES/{horde,imp}.mo
 
 %install
 rm -rf $RPM_BUILD_ROOT
