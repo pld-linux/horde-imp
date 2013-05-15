@@ -7,12 +7,13 @@ Summary(pl.UTF-8):	Program do obsługi poczty przez WWW korzystający z IMAP-a
 Summary(pt_BR.UTF-8):	Programa de Mail via Web
 Name:		horde-%{hordeapp}
 Version:	4.3.10
-Release:	1
+Release:	2
 License:	GPL v2
 Group:		Applications/WWW
 Source0:	ftp://ftp.horde.org/pub/imp/%{hordeapp}-h3-%{version}.tar.gz
 # Source0-md5:	a95a55cd8ed8b5cdec78d586701c8ea1
-Source1:	%{hordeapp}.conf
+Source1:	%{hordeapp}-apache.conf
+Source2:	%{hordeapp}-httpd.conf
 Patch0:		%{hordeapp}-path.patch
 Patch1:		%{hordeapp}-prefs.patch
 Patch2:		%{hordeapp}-quota_hook.patch
@@ -33,6 +34,7 @@ Suggests:	php-pear-Auth_SASL
 Suggests:	php-pear-HTTP_Request
 Suggests:	php-pecl-idn
 Obsoletes:	imp
+Conflicts:	apache-base < 2.4.0-1
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -99,7 +101,7 @@ cp -a docs/CREDITS $RPM_BUILD_ROOT%{_appdir}/docs
 
 ln -s %{_sysconfdir} 	$RPM_BUILD_ROOT%{_appdir}/config
 install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/apache.conf
-install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/httpd.conf
+install %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/httpd.conf
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -115,10 +117,10 @@ fi
 %triggerun -- apache1 < 1.3.37-3, apache1-base
 %webapp_unregister apache %{_webapp}
 
-%triggerin -- apache < 2.2.0, apache-base
+%triggerin -- apache-base
 %webapp_register httpd %{_webapp}
 
-%triggerun -- apache < 2.2.0, apache-base
+%triggerun -- apache-base
 %webapp_unregister httpd %{_webapp}
 
 %triggerpostun -- horde-imp < 4.0.4-1.10, imp
