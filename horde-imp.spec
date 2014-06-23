@@ -30,9 +30,9 @@ Requires:	php(imap)
 Requires:	php(openssl)
 Requires:	php(tidy)
 Requires:	webapps
+Suggests:	php(idn)
 Suggests:	php-pear-Auth_SASL
 Suggests:	php-pear-HTTP_Request
-Suggests:	php-pecl-idn
 Obsoletes:	imp
 Conflicts:	apache-base < 2.4.0-1
 BuildArch:	noarch
@@ -100,8 +100,8 @@ cp -a js lib locale templates themes $RPM_BUILD_ROOT%{_appdir}
 cp -a docs/CREDITS $RPM_BUILD_ROOT%{_appdir}/docs
 
 ln -s %{_sysconfdir} 	$RPM_BUILD_ROOT%{_appdir}/config
-install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/apache.conf
-install %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/httpd.conf
+cp -p %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/apache.conf
+cp -p %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/httpd.conf
 
 %clean
 rm -rf $RPM_BUILD_ROOT
