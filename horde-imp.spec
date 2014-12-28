@@ -20,7 +20,7 @@ Patch2:		%{hordeapp}-quota_hook.patch
 Patch3:		%{hordeapp}-important.patch
 Patch4:		%{hordeapp}-pl.patch
 URL:		http://www.horde.org/imp/
-BuildRequires:	gettext-devel
+BuildRequires:	gettext-tools
 BuildRequires:	horde-devel >= 3.3.12-2
 BuildRequires:	rpm-php-pearprov >= 4.0.2-98
 BuildRequires:	rpmbuild(macros) >= 1.268
