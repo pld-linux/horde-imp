@@ -1,6 +1,5 @@
 %define		hordeapp	imp
 #
-%include	/usr/lib/rpm/macros.php
 Summary:	Web Based IMAP Mail Program
 Summary(es.UTF-8):	Programa de correo vía Internet basado en IMAP
 Summary(pl.UTF-8):	Program do obsługi poczty przez WWW korzystający z IMAP-a
